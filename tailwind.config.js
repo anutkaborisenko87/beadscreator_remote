@@ -8,6 +8,14 @@ export default {
     theme: {
         extend: {},
     },
-    plugins: [],
+    safelist: ['dark', 'positive', 'negative', 'light'],
+    plugins: [
+        function({ addVariant }) {
+            addVariant('dark', '&.dark, .dark &');
+            addVariant('light', '&.light, .light &');
+            addVariant('positive', '&.positive, .positive &');
+            addVariant('negative', '&.negative, .negative &');
+        }
+    ],
 }
 

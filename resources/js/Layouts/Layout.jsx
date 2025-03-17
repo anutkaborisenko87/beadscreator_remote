@@ -1,18 +1,17 @@
-import {Link} from "@inertiajs/react";
-
+import Header from "@/components/Header.jsx";
+import {useSelector} from "react-redux";
 
 const Layout = ({children}) => {
+    const {mode} = useSelector((state) => state.themeMode);
     return (
         <>
-            <header>
-                <nav>
-                    <Link href="/">Home</Link>
-                    <Link href="/create">Create</Link>
-                </nav>
-            </header>
-            <main>
-                {children}
-            </main>
+            <Header />
+            <div className={mode}>
+                <main className="main">
+                    {children}
+                </main>
+            </div>
+
 
         </>
     );

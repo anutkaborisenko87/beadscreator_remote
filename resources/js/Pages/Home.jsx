@@ -1,9 +1,9 @@
 import Layout from "@/Layouts/Layout.jsx";
 
-const Home = ({name}) => {
+const Home = () => {
     return (
         <>
-            <h1 className="text-3xl font-bold underline">Hello {name}</h1>
+
         </>
     );
 };

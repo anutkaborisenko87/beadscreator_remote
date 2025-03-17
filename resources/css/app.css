@@ -1,3 +1,74 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+@custom-variant positive (&:where(.positive, .positive *));
+@custom-variant negative (&:where(.negative, .negative *));
+
+@theme {
+    --color-dark: #202020;
+    --color-positive: #547BCD;
+    --color-negative: #0B3286;
+    --color-header-main: #1F51BD;
+    --color-header-elements: #AEC2ED;
+    --color-menu-active-link-light-positive: #03627C;
+    --color-menu-link-light-positive: #A7DCEB;
+    --color-menu-marker: #1190B4;
+    --color-menu-active-link-dark-negative: #49ABC7;
+    --color-menu-link-dark-negative: #013341;
+    --color-main-text-light: #031945;
+    --color-main-text-dark: #AEC2ED;
+    --color-main-text-positive: #031945;
+    --color-main-text-negative: #8FA8DE;
+    --color-main-bg-light: rgba(217, 217, 217, 0.6);
+    --color-main-bg-dark: rgba(31, 81, 189, 0.6);
+    --color-main-bg-positive: rgba(174, 194, 237, 0.6);
+    --color-main-bg-negative: rgba(84, 123, 205, 0.6);
+    --color-footer-bg-light-positive: #B9B1EE;
+    --color-footer-text-light-positive: #0E0448;
+    --color-footer-bg-dark-negative: #0E0448;
+    --color-footer-text-dark-negative: #B9B1EE;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    margin: 0;
+}
+.h-full-header {
+    @apply bg-[#1F51BD] w-full h-[calc(100vw*0.09)]
+}
+
+.h-full-header-image {
+    width: calc(100vw*0.13);
+    @apply mt-[calc(1vw*0.5)]
+}
+
+.mx-full-screen {
+    margin: 0 7.3vw;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.header-dropdown {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 100%;
+    width: 50%;
+    padding: 1em;
+    background: rgba(31, 81, 189, 0.6);
+    border: 1px solid #AEC2ED;
+    gap: 1em;
+}
+
+.main {
+    @apply h-[100vh] text-[#031945] dark:text-[#AEC2ED] positive:text-[#031945] negative:text-[#8FA8DE] dark:bg-[#202020] positive:bg-[#547BCD] negative:bg-[#0B3286];
+}
