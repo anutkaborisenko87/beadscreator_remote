@@ -41,6 +41,11 @@ h1 {
     margin: 0;
 }
 
+ul {
+    margin: 0;
+    padding: 0;
+}
+
 .h-full-header {
     @apply bg-[#1F51BD] w-full
 }
@@ -100,7 +105,7 @@ h1 {
 }
 
 .main {
-    @apply h-[100vh] text-[#031945] dark:text-[#AEC2ED] positive:text-[#031945] negative:text-[#8FA8DE] dark:bg-[#202020] positive:bg-[#547BCD] negative:bg-[#0B3286];
+    @apply text-[#031945] dark:text-[#AEC2ED] positive:text-[#031945] negative:text-[#8FA8DE] dark:bg-[#202020] positive:bg-[#547BCD] negative:bg-[#0B3286];
 }
 
 .padding-footer-links {
@@ -125,5 +130,48 @@ h1 {
 
 .negative .homepage-main-sections {
     background: rgba(84, 123, 205, 0.6);
+}
+
+.nav-bar-link {
+    @apply flex text-center justify-center px-[1em] py-[1em] border-5 border-[#ffffff] dark:border-[#202020] positive:border-[#547BCD] negative:border-[#0B3286]
+}
+
+.navbar-active-tab,
+.dark .navbar-not-active-tab,
+.negative .navbar-not-active-tab,
+.navbar-not-active-tab:hover,
+.dark .navbar-active-tab:hover,
+.negative .navbar-active-tab:hover
+{
+    @apply bg-[#03627C] cursor-pointer
+}
+
+.navbar-not-active-tab,
+.dark .navbar-active-tab,
+.negative .navbar-active-tab,
+.navbar-active-tab:hover,
+.dark .navbar-not-active-tab:hover,
+.negative .navbar-not-active-tab:hover
+{
+    @apply bg-[#49ABC7] cursor-pointer
+}
+
+.navbar-text-active-tab,
+.navbar-text-not-active-tab:hover,
+.dark .navbar-text-not-active-tab,
+.negative .navbar-text-not-active-tab,
+.dark .navbar-text-active-tab:hover,
+.negative .navbar-text-active-tab:hover
+{
+    @apply text-[#A7DCEB]
+}
+
+.navbar-text-not-active-tab,
+.dark .navbar-text-active-tab,
+.negative .navbar-text-active-tab,
+.navbar-text-active-tab:hover,
+.dark .navbar-text-not-active-tab:hover,
+.negative .navbar-text-not-active-tab:hover {
+    @apply text-[#013341]
 }
 
