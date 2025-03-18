@@ -7,7 +7,7 @@ const SettingsDropdown = ({onHandleClick, classPrefix}) => {
     const {mode} = useSelector((state) => state.themeMode);
 
     return (
-        <div className={`${classPrefix}-dropdown`}>
+        <div className={`${classPrefix}-dropdown`} style={{zIndex: 100}}>
             { mode !== '' && <Icon name="light" size={19} color={ classPrefix === 'header' ? '#D9D9D9' : (mode === 'positive' ? '#0E0448' : '#B9B1EE')} onClick={() => onHandleClick('')}/>}
             { mode !== 'dark' && <Icon name="night" size={19} color={classPrefix === 'header' ? '#D9D9D9' : (mode === 'positive' || mode === '' ? '#0E0448' : '#B9B1EE')} onClick={() => onHandleClick('dark')}/>}
             { mode !== 'negative' && <Icon name="negative" size={19} color={classPrefix === 'header' ? '#D9D9D9' : (mode === 'positive' || mode === '' ? '#0E0448' : '#B9B1EE')} onClick={() => onHandleClick('negative')}/>}

@@ -117,8 +117,16 @@ const icons = {
                     </clipPath>
                 </defs>
             </>
+        ),
+    burger_menu:
+        (color, background) => (
+            <>
+                <rect x="1.5" y="1.5" width="37" height="37" fill={background} stroke={color} strokeWidth="3"/>
+                <line x1="6.41504" y1="8.90002" x2="34.7169" y2="8.90002" stroke={color} strokeWidth="3"/>
+                <line x1="6.41504" y1="19.3" x2="34.7169" y2="19.3" stroke={color} strokeWidth="3"/>
+                <line x1="6.41504" y1="29.7" x2="34.7169" y2="29.7" stroke={color} strokeWidth="3"/>
+            </>
         )
-
 }
 const Icon = ({name, size = 24, color = '#202020', background = '#B9B1EE', className='', ...props}) => {
     const renderIcon = icons[name];
