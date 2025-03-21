@@ -224,18 +224,25 @@ ul {
 }
 
 .galery-item-block {
-    background: rgba(174, 194, 237, 0.6);
     @apply flex my-[1em] w-5/6 mx-auto rounded-[10px] py-[1em] justify-between
 }
 
-.dark .galery-item-block {
-    background: rgba(31, 81, 189, 0.6);
+.galery-item-block-mobile {
+    @apply flex  flex-col justify-center items-center my-[1em] w-5/6 mx-auto rounded-[10px] py-[0.5em]  gap-[0.5em]
 }
 
-.positive .galery-item-block {
+.galery-item-block-background {
     background: rgba(174, 194, 237, 0.6);
 }
 
-.negative .galery-item-block {
+.dark .galery-item-block-background {
+    background: rgba(31, 81, 189, 0.6);
+}
+
+.positive .galery-item-block-background {
+    background: rgba(174, 194, 237, 0.6);
+}
+
+.negative .galery-item-block-background {
     background: rgba(54, 99, 196, 0.6);
 }
