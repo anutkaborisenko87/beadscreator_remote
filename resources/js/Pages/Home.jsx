@@ -1,5 +1,4 @@
 import {useWindowSize} from "react-use";
-
 const Home = () => {
     const {width} = useWindowSize();
     return (
@@ -28,8 +27,8 @@ const Home = () => {
                         творчість, надаючи зручні інструменти для створення та обміну бісерними схемами. Приєднуйтесь до
                         нашої спільноти та відкрийте нові горизонти у світі ручної роботи!</p>
                 </div>
-            </div>
-            <div className={`homepage-main-sections`}>
+            </div>{/*style={{cursor: `url('/images/icons/pencil-line.svg') 16 16, auto`}}*/}
+            <div className={`homepage-main-sections`} >
                 <h4 className={`text-center ${width > 700 ?  'text-[2em]' : 'text-[1.5em]' }`}>Наш онлайн-редактор дозволяє:</h4>
                 <div className={`grid ${width > 700 ? 'grid-cols-2 justify-between text-[1.5em]' : 'grid-cols-1 text-[1em]'}`}>
                     <ul>

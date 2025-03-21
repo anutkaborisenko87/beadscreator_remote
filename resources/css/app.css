@@ -23,9 +23,9 @@
     --color-main-text-positive: #031945;
     --color-main-text-negative: #8FA8DE;
     --color-main-bg-light: rgba(217, 217, 217, 0.6);
-    --color-main-bg-dark: rgba(31, 81, 189, 0.6);
+    --color-main-bg-dark: rgba(54, 99, 196, 0.6);
     --color-main-bg-positive: rgba(174, 194, 237, 0.6);
-    --color-main-bg-negative: rgba(84, 123, 205, 0.6);
+    --color-main-bg-negative: rgba(31, 81, 189, 0.6);
     --color-footer-bg-light-positive: #B9B1EE;
     --color-footer-text-light-positive: #0E0448;
     --color-footer-bg-dark-negative: #0E0448;
@@ -64,6 +64,10 @@ ul {
 
 .position-relative {
     position: relative;
+}
+
+.position-absolute {
+    position: absolute;
 }
 
 .header-dropdown {
@@ -105,6 +109,7 @@ ul {
 }
 
 .main {
+    padding-block: 1em;
     @apply text-[#031945] dark:text-[#AEC2ED] positive:text-[#031945] negative:text-[#8FA8DE] dark:bg-[#202020] positive:bg-[#547BCD] negative:bg-[#0B3286];
 }
 
@@ -175,3 +180,62 @@ ul {
     @apply text-[#013341]
 }
 
+.select-galery-component {
+    @apply border-0 bg-[#AEC2ED] dark:bg-[#1F51BD] positive:bg-[#AEC2ED] negative:bg-[#3663C4] px-[0.5em] focus:outline-none focus:ring-0 focus:border-transparent rounded-[10px] text-[#031945] dark:text-[#AEC2ED] positive:text-[#031945] negative:text-[#8FA8DE]
+}
+
+.search-block-galery {
+    @apply flex items-center justify-between bg-[#AEC2ED] dark:bg-[#1F51BD] positive:bg-[#AEC2ED] negative:bg-[#3663C4] rounded-[10px]
+}
+
+.search-input-galery {
+    @apply  border-0  px-[1.5em] placeholder-[#031945] w-[90%] focus:outline-none focus:ring-0 focus:border-transparent bg-[#AEC2ED] rounded-[10px] dark:bg-[#1F51BD] positive:bg-[#AEC2ED] negative:bg-[#3663C4] text-[#031945] dark:text-[#AEC2ED] positive:text-[#031945] negative:text-[#8FA8DE] dark:placeholder-[#AEC2ED] positive:placeholder-[#031945] negative:placeholder-[#8FA8DE]
+}
+
+.pagination-links {
+    font-weight: bold;
+    @apply text-[#1F51BD] no-underline px-[0.5em] py-[0.5em] text-[1.5em] bg-[#AEC2ED] dark:bg-[#1F51BD] positive:bg-[#AEC2ED] negative:bg-[#3663C4] dark:text-[#AEC2ED] positive:text-[#031945] negative:text-[#8FA8DE]
+}
+
+.pagination-prev-next-links {
+    @apply py-[0.5em] bg-[#AEC2ED] dark:bg-[#1F51BD] positive:bg-[#AEC2ED] negative:bg-[#3663C4]
+}
+
+.active.pagination-links {
+    @apply text-[#AEC2ED] bg-[#1F51BD] dark:bg-[#AEC2ED] positive:bg-[#031945] negative:bg-[#8FA8DE] dark:text-[#1F51BD] positive:text-[#AEC2ED] negative:text-[#3663C4]
+}
+
+.galery-download-button {
+    color: #031945;
+    background: transparent;
+    @apply flex justify-center items-center gap-[0.5em] border-0 cursor-pointer px-[1em] py-[0.5em] rounded-[5px]
+}
+
+.dark .galery-download-button {
+    color: #AEC2ED;
+}
+
+.positive .galery-download-button {
+    color: #031945;
+}
+
+.negative .galery-download-button {
+    color: #D9D9D9;
+}
+
+.galery-item-block {
+    background: rgba(174, 194, 237, 0.6);
+    @apply flex my-[1em] w-5/6 mx-auto rounded-[10px] py-[1em] justify-between
+}
+
+.dark .galery-item-block {
+    background: rgba(31, 81, 189, 0.6);
+}
+
+.positive .galery-item-block {
+    background: rgba(174, 194, 237, 0.6);
+}
+
+.negative .galery-item-block {
+    background: rgba(54, 99, 196, 0.6);
+}
