@@ -87,7 +87,7 @@ const Navbar = () => {
                                 />
                                 {isMobileMenuVisible &&
                                     <ul className={'flex flex-col w-full mx-auto my-0 justify-between'}
-                                        style={{position: 'absolute', top: '100%', left: 0}}>
+                                        style={{position: 'absolute', top: '100%', left: 0, zIndex: 1000}}>
                                         {
                                             !isActive('/') &&
                                             <li className={`nav-bar-link
