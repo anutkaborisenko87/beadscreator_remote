@@ -15,5 +15,10 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Home', ['name' => 'Anna']);
+    return Inertia::render('Home', ['url' => '/']);
 });
+
+Route::get('/galery', function () {
+    return Inertia::render('Galery', ['url' => '/galery']);
+});
+
