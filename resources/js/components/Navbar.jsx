@@ -82,7 +82,7 @@ const Navbar = () => {
                                 <Icon name={'burger_menu'}
                                       color={mode === '' || mode === 'positive' ? '#013341' : '#49ABC7'}
                                       background={mode === '' || mode === 'positive' ? '#49ABC7' : '#013341'}
-                                      size={'65'}
+                                      size={65}
                                       onClick={() => setIsMobileMenuVisible(!isMobileMenuVisible)}
                                 />
                                 {isMobileMenuVisible &&
