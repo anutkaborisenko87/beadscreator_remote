@@ -22,3 +22,7 @@ Route::get('/galery', function () {
     return Inertia::render('Galery', ['url' => '/galery']);
 });
 
+Route::get('/aboutus', function () {
+    return Inertia::render('AboutUs', ['url' => '/aboutus']);
+});
+
