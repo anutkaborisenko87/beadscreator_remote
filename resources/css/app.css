@@ -31,7 +31,10 @@
     --color-footer-bg-dark-negative: #0E0448;
     --color-footer-text-dark-negative: #B9B1EE;
 }
-
+* {
+    margin: 0;
+    padding: 0;
+}
 body {
     margin: 0;
     padding: 0;
@@ -105,11 +108,11 @@ ul {
 
 .footer {
     padding: 0 0.7em;
-   @apply mx-auto flex items-center justify-center w-5/6 h-[70px] bg-[#B9B1EE] dark:bg-[#0E0448] positive:bg-[#B9B1EE] negative:bg-[#0E0448] border-t-2 border-b-2 border-[#0E0448] positive:border-[#0E0448] negative:border-[#B9B1EE] dark:border-[#B9B1EE]
+   @apply mx-auto my-[2em] flex items-center justify-center w-5/6 h-[70px] bg-[#B9B1EE] dark:bg-[#0E0448] positive:bg-[#B9B1EE] negative:bg-[#0E0448] border-t-2 border-b-2 border-[#0E0448] positive:border-[#0E0448] negative:border-[#B9B1EE] dark:border-[#B9B1EE]
 }
 
 .main {
-    padding-block: 1em;
+    padding-bottom: 1em;
     @apply text-[#031945] dark:text-[#AEC2ED] positive:text-[#031945] negative:text-[#8FA8DE] dark:bg-[#202020] positive:bg-[#547BCD] negative:bg-[#0B3286];
 }
 
@@ -224,18 +227,42 @@ ul {
 }
 
 .galery-item-block {
-    background: rgba(174, 194, 237, 0.6);
     @apply flex my-[1em] w-5/6 mx-auto rounded-[10px] py-[1em] justify-between
 }
 
-.dark .galery-item-block {
-    background: rgba(31, 81, 189, 0.6);
+.galery-item-block-mobile {
+    @apply flex  flex-col justify-center items-center my-[1em] w-5/6 mx-auto rounded-[10px] py-[0.5em]  gap-[0.5em]
 }
 
-.positive .galery-item-block {
+.galery-item-block-background {
     background: rgba(174, 194, 237, 0.6);
 }
 
-.negative .galery-item-block {
+.dark .galery-item-block-background {
+    background: rgba(31, 81, 189, 0.6);
+}
+
+.positive .galery-item-block-background {
+    background: rgba(174, 194, 237, 0.6);
+}
+
+.negative .galery-item-block-background {
     background: rgba(54, 99, 196, 0.6);
+}
+
+.about-main-block {
+    @apply w-5/6 flex flex-col justify-center items-stretch mx-auto rounded-[10px] bg-[#AEC2ED] text-[#031945] dark:bg-[#1F51BD] dark:text-[#AEC2ED] positive:bg-[#AEC2ED] positive:text-[#031945] negative:bg-[#3663C4] negative:text-[#D9D9D9]
+}
+
+.about-main-block > h2 {
+    @apply px-[2em] py-[2em] text-center text-[2em]
+}
+
+.about-main-block > p {
+    line-height: 1.5em;
+    @apply w-[93%] mx-auto my-[0.5em] text-justify text-[1.5em]
+}
+
+.about-main-block > img {
+    @apply max-w-[25%]
 }

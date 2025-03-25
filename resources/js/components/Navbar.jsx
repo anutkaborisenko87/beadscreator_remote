@@ -82,12 +82,12 @@ const Navbar = () => {
                                 <Icon name={'burger_menu'}
                                       color={mode === '' || mode === 'positive' ? '#013341' : '#49ABC7'}
                                       background={mode === '' || mode === 'positive' ? '#49ABC7' : '#013341'}
-                                      size={'65'}
+                                      size={65}
                                       onClick={() => setIsMobileMenuVisible(!isMobileMenuVisible)}
                                 />
                                 {isMobileMenuVisible &&
                                     <ul className={'flex flex-col w-full mx-auto my-0 justify-between'}
-                                        style={{position: 'absolute', top: '100%', left: 0}}>
+                                        style={{position: 'absolute', top: '100%', left: 0, zIndex: 1000}}>
                                         {
                                             !isActive('/') &&
                                             <li className={`nav-bar-link
