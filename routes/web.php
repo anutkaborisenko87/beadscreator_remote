@@ -26,3 +26,7 @@ Route::get('/aboutus', function () {
     return Inertia::render('AboutUs', ['url' => '/aboutus']);
 });
 
+Route::get('/editor', function () {
+    return Inertia::render('Editor', ['url' => '/editor']);
+});
+
