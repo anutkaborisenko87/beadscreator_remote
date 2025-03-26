@@ -266,3 +266,11 @@ ul {
 .about-main-block > img {
     @apply max-w-[25%]
 }
+
+.editor-main-div {
+    @apply w-5/6 mx-auto py-[1em] rounded-[10px] bg-[#AEC2ED] text-[#031945] dark:bg-[#1F51BD] dark:text-[#AEC2ED] positive:bg-[#AEC2ED] positive:text-[#031945] negative:bg-[#3663C4] negative:text-[#D9D9D9]
+}
+
+.editor-number-inputs {
+    @apply border-0 h-[2em] px-[1em] w-[3em] text-[1em] text-[#031945] bg-[#D9D9D9] rounded-[10px] focus:outline-none focus:ring-0 focus:border-transparent dark:bg-[#D9D9D9] dark:text-[#1F51BD] positive:bg-[#D9D9D9] positive:text-[#031945] negative:bg-[#D9D9D9] negative:text-[#3663C4]
+}
