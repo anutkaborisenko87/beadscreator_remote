@@ -88,7 +88,9 @@ const Editor = () => {
                 <ColorPicker color={color}/>
                 <UsedColors/>
                 <Icon className={'cursor-pointer'} name={'grid'} color={color} size={25}
-                      title={"Виділити область для копіювання"}/>
+                      title={"Виділити область для копіювання"}
+                      onClick={() => toggleTool("selection")}
+                />
             </div>
             <div
                 className="flex w-[calc(100%-2em)] mx-auto justify-start items-center gap-[1em] bg-[#ffffff] overflow-auto">
