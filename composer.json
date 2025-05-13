@@ -12,7 +12,10 @@
         "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/socialite": "^5.20",
+        "laravel/tinker": "^2.8",
+        "spatie/laravel-permission": "^6.17",
+        "ext-http": "*"
     },
     "require-dev": {
         "backpack/generators": "^4.0",

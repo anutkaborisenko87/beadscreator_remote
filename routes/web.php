@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,20 +14,26 @@ use Inertia\Inertia;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::get('/', function () {
-    return Inertia::render('Home', ['url' => '/']);
+    return Inertia::render('Home');
 });
 
 Route::get('/galery', function () {
-    return Inertia::render('Galery', ['url' => '/galery']);
+    return Inertia::render('Galery');
 });
 
 Route::get('/aboutus', function () {
-    return Inertia::render('AboutUs', ['url' => '/aboutus']);
+    return Inertia::render('AboutUs');
 });
 
 Route::get('/editor', function () {
-    return Inertia::render('Editor', ['url' => '/editor']);
+    return Inertia::render('Editor');
 });
+
+Route::get('auth/google/redirect', [\App\Http\Controllers\Auth\GoogleAuthController::class, 'redirect'])->name('google-auth');
+Route::get('auth/google/callback', [\App\Http\Controllers\Auth\GoogleAuthController::class, 'callbackGoogle']);
 
