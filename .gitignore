@@ -21,3 +21,4 @@ composer.lock
 package-lock.json
 /.osp/
 *.lock
+/vite.config.js.*

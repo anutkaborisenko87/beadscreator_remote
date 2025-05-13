@@ -1,20 +1,45 @@
 import Icon from "@/components/Icon.jsx";
 import React from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {openCloseModal} from "../store/modalSlice.js";
+import {Link} from "@inertiajs/react";
 
 const ProfileLinksDropdown = ({classPrefix}) => {
+    const dispatch = useDispatch();
     const {mode} = useSelector((state) => state.themeMode);
+    const {user} = useSelector((state) => state.authUser);
     return (
         <div className={`${classPrefix}-dropdown`} style={{zIndex: 100}}>
-            <div className="flex items-center cursor-pointer">
-                <Icon color={classPrefix === 'header' ? '#A7DCEB' : (mode === 'positive' || mode === '' ? '#0E0448' : '#B9B1EE')} name="person_edit" size="25"/>
-                <small>Профіль</small>
-            </div>
-            <div className="flex items-center cursor-pointer">
-                <Icon color={classPrefix === 'header' ? '#A7DCEB' : (mode === 'positive' || mode === '' ? '#0E0448' : '#B9B1EE')} name="person_exit" size="25"></Icon>
-                <h5>Вийти</h5>
-            </div>
+            {
+                user ?
+                    <>
+                        <div className="flex items-center cursor-pointer">
+                            <Icon color={classPrefix === 'header' ? '#A7DCEB' : (mode === 'positive' || mode === '' ? '#0E0448' : '#B9B1EE')} name="person_edit" size="25"/>
+                            <small>Профіль</small>
+                        </div>
+                        <Link href={'/logout'} className="flex items-center cursor-pointer no-underline">
+                            <Icon color={classPrefix === 'header' ? '#A7DCEB' : (mode === 'positive' || mode === '' ? '#0E0448' : '#B9B1EE')} name="person_exit" size="25"></Icon>
+                            <h5 className={`${classPrefix === 'header' ? 'text-[#A7DCEB]' : (mode === 'positive' || mode === '' ? 'text-[#0E0448]' : 'text-[#B9B1EE]')}`}>Вийти</h5>
+                        </Link>
+                    </>
+                    :
+                    <>
+                        <div className="flex items-center cursor-pointer" onClick={() => {
+                            dispatch(openCloseModal({open: true, mode: 'login'}));
 
+                        }}>
+                            <Icon color={classPrefix === 'header' ? '#A7DCEB' : (mode === 'positive' || mode === '' ? '#0E0448' : '#B9B1EE')} name="person_login" size="25"></Icon>
+                            <h5>Увійти</h5>
+                        </div>
+                        <div className="flex items-center cursor-pointer" onClick={() => {
+                            dispatch(openCloseModal({open: true, mode: 'register'}));
+
+                        }}>
+                            <Icon color={classPrefix === 'header' ? '#A7DCEB' : (mode === 'positive' || mode === '' ? '#0E0448' : '#B9B1EE')} name="person_register" size="25"></Icon>
+                            <h5>Зареєструватися</h5>
+                        </div>
+                    </>
+            }
         </div>
     );
 };
