@@ -77,9 +77,9 @@ ul {
     position: absolute;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     top: 100%;
-    width: 75%;
+    width: auto;
     padding: 1em;
     background: rgba(31, 81, 189, 0.6);
     border: 1px solid #AEC2ED;
@@ -91,8 +91,8 @@ ul {
     display: flex;
     flex-direction: column-reverse;
     align-content: center;
-    align-items: center;
-    width: 75%;
+    align-items: start;
+    width: auto;
     bottom: 100%;
     padding: 1em;
     background: rgba(185, 177, 238, 0.6);

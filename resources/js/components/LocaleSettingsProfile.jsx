@@ -4,8 +4,9 @@ import SettingsDropdown from "@/components/SetttingsDropdown.jsx";
 import ProfileLinksDropdown from "@/components/ProfileLinksDropdown.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useWindowSize} from "react-use";
-import {useState} from "react";
 import {setTheme} from "@/store/themeSlice.js";
+import DropdownWrapper from "./DropdownWrapper.jsx";
+import {useEffect, useState} from "react";
 
 const LocaleSettingsProfile = ({classPrefix}) => {
     const dispatch = useDispatch();
@@ -14,39 +15,29 @@ const LocaleSettingsProfile = ({classPrefix}) => {
     const [isLocaleOpen, setIsLocaleOpen] = useState(false);
     const [isProfileSettingsOpen, setIsProfileSettingsOpen] = useState(false);
     const {mode} = useSelector((state) => state.themeMode);
+    const {isOpen} = useSelector((state) => state.modal);
     const iconName = mode === 'dark' ? 'night' : mode === 'negative' ? 'negative' : mode === 'positive' ? 'positive' : 'light';
     const changeTheme = (mode) => {
         dispatch(setTheme(mode));
         setIsSettingsOpen(false);
     }
+    useEffect(() => {
+        if (isOpen) {
+            setIsSettingsOpen(false);
+            setIsLocaleOpen(false);
+            setIsProfileSettingsOpen(false);
+        }
+    }, [isOpen]);
 
-    const handleOpenCloseDropdown = (view) => {
-        console.log(view);
-        if (view === 'settings') {
-            setIsSettingsOpen(!isSettingsOpen);
-            setIsLocaleOpen(false);
-            setIsProfileSettingsOpen(false);
-        }
-        if (view === 'locale') {
-            setIsLocaleOpen(!isLocaleOpen);
-            setIsSettingsOpen(false);
-            setIsProfileSettingsOpen(false);
-        }
-        if (view === 'profile') {
-            setIsProfileSettingsOpen(!isProfileSettingsOpen);
-            setIsLocaleOpen(false);
-            setIsSettingsOpen(false);
-        }
-    }
     return (
         <div className={`flex items-center justify-center mx-auto w-1/3 ${width > 1060 ? 'gap-[3em]' : 'gap-[0.5em]'}`}>
             <div className="flex items-center cursor-pointer position-relative">
                 <Icon
                     color={classPrefix === 'header' ? '#A7DCEB' : (mode === 'positive' || mode === '' ? '#0E0448' : '#B9B1EE')}
                     name="globe" size={width > 1500 ? 40 : (width > 700 ? 32 : 24)}
-                    onClick={() => handleOpenCloseDropdown('locale')}></Icon>
-                <h3 onClick={() => handleOpenCloseDropdown('locale')}>UA</h3>
-                {isLocaleOpen && <LocaleDropdown classPrefix={classPrefix}/>}
+                    onClick={() => setIsLocaleOpen(true)}></Icon>
+                <h3 onClick={() => setIsLocaleOpen(true)}>UA</h3>
+                {isLocaleOpen && <DropdownWrapper classPrefix={classPrefix} onClose={() => setIsLocaleOpen(false)}><LocaleDropdown classPrefix={classPrefix}/></DropdownWrapper>}
             </div>
             <div className="flex items-center cursor-pointer position-relative">
                 <Icon
@@ -59,10 +50,10 @@ const LocaleSettingsProfile = ({classPrefix}) => {
                         name={iconName} size="15"/>
                     <Icon
                         color={classPrefix === 'header' ? '#A7DCEB' : (mode === 'positive' || mode === '' ? '#0E0448' : '#B9B1EE')}
-                        onClick={() => handleOpenCloseDropdown('settings')}
+                        onClick={() => setIsSettingsOpen(true)}
                         name="arrowDown" size={width > 1500 ? 25 : (width > 700 ? 18 : 12)}/>
                 </div>
-                {isSettingsOpen && <SettingsDropdown onHandleClick={changeTheme} classPrefix={classPrefix}/>}
+                {isSettingsOpen && <DropdownWrapper classPrefix={classPrefix} onClose={() => setIsSettingsOpen(false)}><SettingsDropdown onHandleClick={changeTheme} classPrefix={classPrefix}/></DropdownWrapper>}
             </div>
             <div className="flex items-center cursor-pointer position-relative">
                 <Icon
@@ -71,10 +62,10 @@ const LocaleSettingsProfile = ({classPrefix}) => {
                 <Icon
                     color={classPrefix === 'header' ? '#A7DCEB' : (mode === 'positive' || mode === '' ? '#0E0448' : '#B9B1EE')}
                     name="arrowDown" size={width > 1500 ? 25 : (width > 700 ? 18 : 12)}
-                    onClick={() => handleOpenCloseDropdown('profile')}
+                    onClick={() => setIsProfileSettingsOpen(true)}
                     className={classPrefix === 'footer' ? 'transform-rotate-180' : ''}
                 ></Icon>
-                {isProfileSettingsOpen && <ProfileLinksDropdown classPrefix={classPrefix}/>}
+                {isProfileSettingsOpen && <DropdownWrapper classPrefix={classPrefix} onClose={() => setIsProfileSettingsOpen(false)}><ProfileLinksDropdown classPrefix={classPrefix} /></DropdownWrapper>}
             </div>
         </div>
     );
