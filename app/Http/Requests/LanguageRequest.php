@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class LanguageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         // only allow updates if the user is logged in
         return backpack_auth()->check();
@@ -22,16 +22,15 @@ class UserRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
-        $userId = $this->route('id');
-
         return [
-            'login' => 'required|string|min:5|max:255|unique:users,login,' . $userId,
-            'firstName' => 'sometimes|string|min:3|max:255',
-            'lastName' => 'sometimes|string|min:5|max:255',
-            'email' => 'required|email|unique:users,email,' . $userId,
-            'blocked' => 'sometimes|boolean',
+            'name' => 'required|string|min:2|max:3',
+            'title' => 'required|string|min:5|max:15',
+            'slug' => 'required|string|min:2|max:3',
+            'locale' => 'required|string|regex:/^[a-z]{2}-[A-Z]{2}$/',
+            'default' => 'required|boolean',
+            'status' => 'required|boolean',
         ];
     }
 
@@ -40,7 +39,7 @@ class UserRequest extends FormRequest
      *
      * @return array
      */
-    public function attributes(): array
+    public function attributes()
     {
         return [
             //
@@ -52,7 +51,7 @@ class UserRequest extends FormRequest
      *
      * @return array
      */
-    public function messages(): array
+    public function messages()
     {
         return [
             //
