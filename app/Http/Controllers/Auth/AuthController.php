@@ -25,6 +25,9 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
         $user = User::where('email', $request->input('email'))->first();
+        if ($user->blocked) {
+            return redirect()->back()->with('error', 'You are blocked');
+        }
         if ($user && $user->password === null) {
             $status = Password::sendResetLink(['email' => $user->email]);
 

@@ -41,8 +41,11 @@ class GoogleAuthController extends Controller
                     ]
                 );
             }
-            Auth::login($user);
             $redirectUrl = session('redirect_url', url('/'));
+            if ($user->blocked) {
+                return redirect($redirectUrl)->with('error', 'You are blocked');
+            }
+            Auth::login($user);
             session()->forget('redirect_url');
             return redirect($redirectUrl)->with('success', 'You are logged in');
         } catch (Exception $exception) {

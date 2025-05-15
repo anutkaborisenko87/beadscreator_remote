@@ -14,26 +14,28 @@ use Inertia\Inertia;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], function () {
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-Route::get('/', function () {
-    return Inertia::render('Home');
+    Route::get('/', function () {
+        return Inertia::render('Home');
+    });
+
+    Route::get('/galery', function () {
+        return Inertia::render('Galery');
+    });
+
+    Route::get('/aboutus', function () {
+        return Inertia::render('AboutUs');
+    });
+
+    Route::get('/editor', function () {
+        return Inertia::render('Editor');
+    });
+
+    Route::get('auth/google/redirect', [\App\Http\Controllers\Auth\GoogleAuthController::class, 'redirect'])->name('google-auth');
+    Route::get('auth/google/callback', [\App\Http\Controllers\Auth\GoogleAuthController::class, 'callbackGoogle']);
+
 });
-
-Route::get('/galery', function () {
-    return Inertia::render('Galery');
-});
-
-Route::get('/aboutus', function () {
-    return Inertia::render('AboutUs');
-});
-
-Route::get('/editor', function () {
-    return Inertia::render('Editor');
-});
-
-Route::get('auth/google/redirect', [\App\Http\Controllers\Auth\GoogleAuthController::class, 'redirect'])->name('google-auth');
-Route::get('auth/google/callback', [\App\Http\Controllers\Auth\GoogleAuthController::class, 'callbackGoogle']);
-

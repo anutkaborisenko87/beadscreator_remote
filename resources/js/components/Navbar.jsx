@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {useState} from "react";
 
 const Navbar = () => {
-    const {url} = usePage();
+    const {url, locale} = usePage().props;
     const {width} = useWindowSize();
     const {mode} = useSelector((state) => state.themeMode);
     const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
@@ -19,28 +19,28 @@ const Navbar = () => {
                     {width > 900 ?
                         <>
                             <li className={`nav-bar-link w-1/4
-                                ${isActive('/') ? 'navbar-active-tab' : 'navbar-not-active-tab'}`}>
+                                ${isActive('') ? 'navbar-active-tab' : 'navbar-not-active-tab'}`}>
                                 <Link className={`no-underline text-[1.5em]
-                                    ${isActive('/') ? 'navbar-text-active-tab' : 'navbar-text-not-active-tab'}`}
-                                      href={'/'}>Головна</Link>
+                                    ${isActive('') ? 'navbar-text-active-tab' : 'navbar-text-not-active-tab'}`}
+                                      href={`${locale !== '' ? `/${locale}` :'/'}`}>Головна</Link>
                             </li>
                             <li className={`nav-bar-link w-1/4
                                 ${isActive('/galery') ? 'navbar-active-tab' : 'navbar-not-active-tab'}`}>
                                 <Link className={`no-underline text-[1.5em]
                                     ${isActive('/galery') ? 'navbar-text-active-tab' : 'navbar-text-not-active-tab'}`}
-                                      href={'/galery'}>Галерея</Link>
+                                      href={`${locale !== '' ? `/${locale}/galery` :'/galery'}`}>Галерея</Link>
                             </li>
                             <li className={`nav-bar-link w-1/4
                                 ${isActive('/aboutus') ? 'navbar-active-tab' : 'navbar-not-active-tab'}`}>
                                 <Link className={`no-underline text-[1.5em]
                                     ${isActive('/aboutus') ? 'navbar-text-active-tab' : 'navbar-text-not-active-tab'}`}
-                                      href={'/aboutus'}>Про нас</Link>
+                                      href={`${locale !== '' ? `/${locale}/aboutus` :'/aboutus'}`}>Про нас</Link>
                             </li>
                             <li className={`nav-bar-link w-1/4
                                 ${isActive('/editor') ? 'navbar-active-tab' : 'navbar-not-active-tab'}`}>
                                 <Link className={`no-underline text-[1.5em]
                                     ${isActive('/editor') ? 'navbar-text-active-tab' : 'navbar-text-not-active-tab'}`}
-                                      href={'/editor'}>Редактор схем</Link>
+                                      href={`${locale !== '' ? `/${locale}/editor` :'/editor'}`}>Редактор схем</Link>
                             </li>
                         </>
 
