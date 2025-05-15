@@ -1,15 +1,16 @@
-import {Link} from "@inertiajs/react";
+import {Link, usePage} from "@inertiajs/react";
 import {useWindowSize} from "react-use";
 import logo from '../../images/sitelogo.png';
 import LocaleSettingsProfile from "@/components/LocaleSettingsProfile.jsx";
 
 const Header = () => {
+    const {locale} = usePage().props;
     const {width} = useWindowSize();
 
     return (
         <header className="h-full-header">
             <nav className="flex items-center mx-full-screen text-header-elements">
-                <Link href="/">
+                <Link href={`/${locale}`} className={`h-full-header-image`}>
                     <img src={logo} alt="logo" className="h-full-header-image"/>
                 </Link>
                 { width > 700 ?

@@ -29,7 +29,8 @@ class User extends Authenticatable
         'lastName',
         'avatar',
         'google_id',
-        'preferredLang_id'
+        'preferredLang_id',
+        'blocked'
     ];
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Language;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -35,13 +36,20 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $locale = LocaleMiddleware::getLocale();
+        $currentLang = array_filter(Language::getDropdownList(), function ($item) {
+            return $item['current'] === true;
+        });
         return array_merge(parent::share($request), [
             'flash' => [
                 'success' => $request->session()->get('success'),
                 'error'   => $request->session()->get('error'),
             ],
+            'langs' => Language::getDropdownList(),
             'user' => auth()->user(),
-            'url' => $request->getPathInfo(),
+            'url' => str_replace("/$locale", "", $request->getPathInfo()),
+            'locale' => $locale ?? '',
+            'current_lang' => array_values($currentLang)[0]
         ]);
     }
 }
