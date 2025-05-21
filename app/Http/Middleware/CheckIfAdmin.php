@@ -28,7 +28,13 @@ class CheckIfAdmin
      */
     private function checkIfUserIsAdmin($user)
     {
-        return $user->hasRole('super_admin');
+        $roles = $user->roles;
+        if (!$roles instanceof \Illuminate\Support\Collection) {
+            $roles = collect([$roles]);
+        }
+        return $roles->contains(function ($role) {
+            return $role->name === 'super_admin';
+        });
     }
 
     /**

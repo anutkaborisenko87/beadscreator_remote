@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Middleware\LocaleMiddleware;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
@@ -41,6 +42,12 @@ class Language extends Model
                 'current' => $item['slug'] === $currentLocale
             ];
         }, $languages);
+    }
+
+    public static function getCurrent()
+    {
+        $locale = LocaleMiddleware::getLocale();
+        return self::where('slug', $locale)->first();
     }
 
 }

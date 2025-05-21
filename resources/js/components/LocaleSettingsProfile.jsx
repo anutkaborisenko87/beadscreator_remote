@@ -39,7 +39,7 @@ const LocaleSettingsProfile = ({classPrefix}) => {
                     name="globe" size={width > 1500 ? 40 : (width > 700 ? 32 : 24)}
                     onClick={() => setIsLocaleOpen(true)}></Icon>
                 <h3 onClick={() => setIsLocaleOpen(true)} title={current_lang.title}>{current_lang.name}</h3>
-                {isLocaleOpen && <DropdownWrapper classPrefix={classPrefix} onClose={() => setIsLocaleOpen(false)}><LocaleDropdown classPrefix={classPrefix}/></DropdownWrapper>}
+                {isLocaleOpen && <DropdownWrapper classPrefix={classPrefix} onClose={() => setIsLocaleOpen(false)}><LocaleDropdown classPrefix={classPrefix} onClose={() => setIsLocaleOpen(false)}/></DropdownWrapper>}
             </div>
             <div className="flex items-center cursor-pointer position-relative">
                 <Icon

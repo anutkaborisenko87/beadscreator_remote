@@ -3,3 +3,5 @@
 
 <x-backpack::menu-item title="Users" icon="la la-users" :link="backpack_url('user')" />
 <x-backpack::menu-item title="Languages" icon="la la-language" :link="backpack_url('language')" />
+
+<x-backpack::menu-item title="Pages" icon="la la-file" :link="backpack_url('page')" />

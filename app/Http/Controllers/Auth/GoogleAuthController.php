@@ -32,7 +32,7 @@ class GoogleAuthController extends Controller
             if (!$user) {
                 $user = User::firstOrCreate(['email' => $googleUser->getEmail()],
                     [
-                        'login' => $googleUser->getName(),
+                        'login' => $googleUser->getEmail(),
                         'email' => $googleUser->getEmail(),
                         'google_id' => $googleUser->getId(),
                         'avatar' => $googleUser->getAvatar(),
@@ -40,6 +40,9 @@ class GoogleAuthController extends Controller
                         'lastName' => $googleUser->getName(),
                     ]
                 );
+            }
+            if ($user->roles->count() === 0) {
+                $user->assignRole('user');
             }
             $redirectUrl = session('redirect_url', url('/'));
             if ($user->blocked) {
