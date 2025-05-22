@@ -17,6 +17,7 @@ class AuthController extends Controller
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
+        $user->assignRole('user');
         Auth::login($user);
         $request->session()->regenerate();
         return redirect()->back()->with('success', 'You are logged in');

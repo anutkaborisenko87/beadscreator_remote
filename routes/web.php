@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,24 +19,10 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
-
-    Route::get('/', function () {
-        return Inertia::render('Home');
-    });
-
-    Route::get('/galery', function () {
-        return Inertia::render('Galery');
-    });
-
-    Route::get('/aboutus', function () {
-        return Inertia::render('AboutUs');
-    });
-
-    Route::get('/editor', function () {
-        return Inertia::render('Editor');
-    });
-
     Route::get('auth/google/redirect', [\App\Http\Controllers\Auth\GoogleAuthController::class, 'redirect'])->name('google-auth');
     Route::get('auth/google/callback', [\App\Http\Controllers\Auth\GoogleAuthController::class, 'callbackGoogle']);
+    Route::get('/{slug?}', [PagesController::class, 'view'])
+        ->where('slug', '[A-Za-z0-9\-/_]+')
+        ->name('page');
 
 });

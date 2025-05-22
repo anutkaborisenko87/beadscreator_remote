@@ -30,6 +30,11 @@ class UserCrudController extends CrudController
         CRUD::setModel(\App\Models\User::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/user');
         CRUD::setEntityNameStrings('user', 'users');
+        $this->crud->operation('list', function () {
+            $this->crud->setAccessCondition(['delete'], function ($entry) {
+                return (bool) $entry->blocked === false;
+            });
+        });
     }
 
     /**
@@ -40,6 +45,8 @@ class UserCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::addBaseClause('where', 'id', '!=', backpack_user()->id);
+
         /**
          * Columns can be defined using the fluent syntax:
          * - CRUD::column('price')->type('number');
@@ -48,6 +55,15 @@ class UserCrudController extends CrudController
         CRUD::column('email')->type('email');
         CRUD::column('firstName')->type('string');
         CRUD::column('lastName')->type('string');
+        CRUD::addColumn([
+            'name'     => 'role', // назва колонки
+            'label'    => 'Role',
+            'type'     => 'closure',
+            'function' => function($entry) {
+                return $entry->roles->first() ? $entry->roles->first()->name : '';
+            },
+        ]);
+
         CRUD::column('blocked')->type('boolean')->label('Blocked');
     }
 
@@ -60,7 +76,6 @@ class UserCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(UserRequest::class);
-//        CRUD::setFromDb(); // set fields from db columns.
 
         /**
          * Fields can be defined using the fluent syntax:
@@ -70,6 +85,15 @@ class UserCrudController extends CrudController
         CRUD::field('email')->type('email');
         CRUD::field('firstName')->type('text');
         CRUD::field('lastName')->type('text');
+        CRUD::field([
+            'label'     => "Role",
+            'type'      => 'select_multiple',
+            'name'      => 'roles',
+            'entity'    => 'roles',
+            'model'     => "Spatie\Permission\Models\Role",
+            'attribute' => 'name',
+            'pivot'     => true,
+        ]);
         CRUD::field('blocked')->type('checkbox');
 
     }
@@ -96,4 +120,10 @@ class UserCrudController extends CrudController
         $user = $this->crud->model->findOrFail($id);
         return $user->update(['blocked' => true]);
     }
+
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+    }
+
 }
