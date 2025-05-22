@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class PageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         // only allow updates if the user is logged in
         return backpack_auth()->check();
@@ -22,18 +22,18 @@ class UserRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
-        $userId = $this->route('id');
-
         return [
-            'login' => 'required|string|min:5|max:255|unique:users,login,' . $userId,
-            'firstName' => 'sometimes|nullable|string|min:3|max:255',
-            'lastName' => 'sometimes|nullable|string|min:5|max:255',
-            'email' => 'required|email|unique:users,email,' . $userId,
-            'blocked' => 'sometimes|boolean',
-            'roles' => 'required|array',
-            'roles.*' => 'numeric|exists:roles,id'
+            'translate' => 'required|array',
+            'translate.*.title' => 'required|string|min:3|max:255',
+            'translate.*.intro' => 'required|string|min:3|max:255',
+            'translate.*.seo_title' => 'sometimes|string|nullable|max:255',
+            'translate.*.meta_description' => 'sometimes|nullable',
+            'translate.*.meta_robots' => 'sometimes|nullable|max:255',
+            'home' => 'sometimes|boolean',
+            'status' => 'sometimes|boolean',
+            'publish_up' => 'required|date'
         ];
     }
 
@@ -42,7 +42,7 @@ class UserRequest extends FormRequest
      *
      * @return array
      */
-    public function attributes(): array
+    public function attributes()
     {
         return [
             //
@@ -54,7 +54,7 @@ class UserRequest extends FormRequest
      *
      * @return array
      */
-    public function messages(): array
+    public function messages()
     {
         return [
             //

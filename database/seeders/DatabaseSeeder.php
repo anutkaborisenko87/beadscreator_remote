@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             LanguagessSeeder::class,
             RolesSeeder::class,
             UserSeeder::class,
+            PagesSeeder::class,
         ]);
     }
 }

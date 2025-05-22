@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Language;
+use App\Models\Page;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -40,16 +41,24 @@ class HandleInertiaRequests extends Middleware
         $currentLang = array_filter(Language::getDropdownList(), function ($item) {
             return $item['current'] === true;
         });
+        $navMenu = Page::getNavbarMenu();
+        $user = !is_null(auth()->user()) ? auth()->user()->load('roles') : null;
+        if (!is_null($user)) {
+            $user->setRelation('roles', $user->roles->first());
+        }
+
+
         return array_merge(parent::share($request), [
             'flash' => [
                 'success' => $request->session()->get('success'),
                 'error'   => $request->session()->get('error'),
             ],
             'langs' => Language::getDropdownList(),
-            'user' => auth()->user(),
-            'url' => str_replace("/$locale", "", $request->getPathInfo()),
+            'user' => $user,
+            'url' => is_null($locale) ? $request->getPathInfo() : str_replace("/$locale", "", $request->getPathInfo()),
             'locale' => $locale ?? '',
-            'current_lang' => array_values($currentLang)[0]
+            'current_lang' => array_values($currentLang)[0],
+            'nav_menu' => $navMenu,
         ]);
     }
 }
