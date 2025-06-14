@@ -8,7 +8,7 @@ import UsedColors from "@/components/UsedColors.jsx";
 import ColorPicker from "@/components/ColorPicker.jsx";
 import {useEffect, useRef} from "react";
 
-const Editor = () => {
+const EditorPageSection = ({data}) => {
     const dispatch = useDispatch();
     const {mode} = useSelector((state) => state.themeMode);
     const {gridHeight,gridWidth, drawnCells, margin} = useSelector((state) => state.grid);
@@ -62,33 +62,33 @@ const Editor = () => {
     return (
         <div className={'editor-main-div'}>
             <div className={'px-[1em] flex justify-between items-end my-[1em]'}>
-                <WidthHeightsControls color={color}/>
+                <WidthHeightsControls color={color} data={data} />
 
                 <div className={'flex justify-end items-end gap-[1em]'}>
                     <Icon className={'cursor-pointer'} name={'plus'} color={color} size={25}
-                          title={'Почати нову чернетку'}/>
+                          title={data.new_draft_title}/>
                     <Icon className={'cursor-pointer'} name={'save'} color={color} size={25}
-                          title={'Зберегти до своєї галереї'}/>
+                          title={data.save_draft_title}/>
                 </div>
 
             </div>
             <div className="flex justify-start items-center px-[1em] gap-[1em] my-[1em]">
-                <Icon className={'cursor-pointer'} name={'pencil'} color={color} size={25} title={'Малювати'}
+                <Icon className={'cursor-pointer'} name={'pencil'} color={color} size={25} title={data.pencil_title}
                       onClick={() => toggleTool("pen")}/>
-                <Icon className={'cursor-pointer'} name={'paint_fill'} color={color} size={25} title={'Заливка'}
+                <Icon className={'cursor-pointer'} name={'paint_fill'} color={color} size={25} title={data.fulfill_title}
                       onClick={() => toggleTool("fill")}/>
-                <Icon className={'cursor-pointer'} name={'eraser'} color={color} size={25} title={'Стерти'}
+                <Icon className={'cursor-pointer'} name={'eraser'} color={color} size={25} title={data.eraser_title}
                       onClick={() => toggleTool("eraser")}/>
-                <Icon className={'cursor-pointer'} name={'undo'} color={color} size={25} title={'Відмінити'}
+                <Icon className={'cursor-pointer'} name={'undo'} color={color} size={25} title={data.undo_title}
                       onClick={() => dispatch(undo())}/>
-                <Icon className={'cursor-pointer'} name={'redo'} color={color} size={25} title={'Повернути відмінене'}
+                <Icon className={'cursor-pointer'} name={'redo'} color={color} size={25} title={data.redo_title}
                       onClick={() => dispatch(redo())}/>
-                <Icon className={'cursor-pointer'} name={'trash'} color={color} size={25} title={"Очистити поле"}
+                <Icon className={'cursor-pointer'} name={'trash'} color={color} size={25} title={data.clear_title}
                       onClick={() => dispatch(setDrawnCells({}))}/>
-                <ColorPicker color={color}/>
+                <ColorPicker color={color} title={data.colors_title}/>
                 <UsedColors/>
                 <Icon className={'cursor-pointer'} name={'grid'} color={color} size={25}
-                      title={"Виділити область для копіювання"}
+                      title={data.copyfield_title}
                       onClick={() => toggleTool("selection")}
                 />
             </div>
@@ -108,4 +108,4 @@ const Editor = () => {
     );
 };
 
-export default Editor;
+export default EditorPageSection;

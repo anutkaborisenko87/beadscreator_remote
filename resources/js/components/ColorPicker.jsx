@@ -4,7 +4,7 @@ import {ChromePicker} from "react-color";
 import {useDispatch, useSelector} from "react-redux";
 import {setFillColor, setPenColor} from "@/store/gridSlice.js";
 
-const ColorPicker = ({color}) => {
+const ColorPicker = ({color, title}) => {
     const dispatch = useDispatch();
     const [showColorPicker, setShowColorPicker] = useState(false);
     const {penColor, tool, fillColor} = useSelector((state) => state.grid);
@@ -27,7 +27,7 @@ const ColorPicker = ({color}) => {
         <div className={'position-relative'}>
             <Icon className={'cursor-pointer'} name={'palette'} color={color} size={25}
                   onClick={handleColorClick}
-                  title={"Палітра кольорів"}/>
+                  title={title}/>
             {showColorPicker && (
                 <div style={{position: 'absolute', zIndex: 100}}>
                     <input type="color" value={selectedColor}
