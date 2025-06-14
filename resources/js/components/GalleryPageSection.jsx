@@ -38,20 +38,6 @@ const categories = [
         subcategories: []
     },
 ];
-const sortingOptions = [
-    {
-        id: 'most_popular',
-        name: 'За популярністю'
-    },
-    {
-        id: 'creation_date_asc',
-        name: 'Спочатку найдавніші'
-    },
-    {
-        id: 'creation_date_desc',
-        name: 'Спочатку найновіші'
-    }
-];
 
 const galeryItems = {
     current_page: 3,
@@ -159,7 +145,7 @@ const galeryItems = {
     total: 30
 }
 
-const Galery = () => {
+const GalleryPageSection = ({data}) => {
     const {mode} = useSelector((state) => state.themeMode);
     const iconColor = mode === '' || mode === 'positive' ? '#031945' : (mode === 'negative' ? '#AEC2ED' : '#8FA8DE')
     const {width} = useWindowSize();
@@ -169,17 +155,18 @@ const Galery = () => {
                 className={`flex justify-center items-center my-[0.5em] w-5/6 ${width > 900 ? 'gap-[1em]' : 'flex-col-reverse gap-[0.5em]'}  mx-auto`}>
                 <div
                     className={`flex justify-center items-center ${width > 900 ? 'w-2/3 gap-[1em]' : 'w-full gap-[0.5em]'}  mx-auto`}>
-                    <SelectComponent placeholder={'Оберіть категорію'}
-                                     options={categories}
+                    <SelectComponent placeholder={data?.category_select?.category_select_placeholder}
+                                     options={data?.category_select?.category_select_items}
                                      className={`select-galery-component w-1/2  ${width > 900 ? 'text-[2em] h-[2em]' : 'text-[1.5em] h-[1.7em]'}`}/>
-                    <SelectComponent placeholder={'Сортувати за'}
-                                     options={sortingOptions}
+                    <SelectComponent placeholder={data?.sort_select?.sort_select_placeholder}
+                                     options={data?.sort_select?.sort_select_items}
                                      className={`select-galery-component w-1/2 ${width > 900 ? 'text-[2em] h-[2em]' : 'text-[1.5em] h-[1.7em]'}`}/>
                 </div>
 
                 <SearchInput
                     color={iconColor}
                     iconSize={width > 900 ? 30 : 20}
+                    placeholderText={data?.search_input?.search_input_placeholder}
                     classDivName={`search-block-galery position-relative  ${width > 900 ? 'w-2/3' : 'w-full'}`}
                     classInputName={`search-input-galery ${width > 900 ? 'text-[2em] h-[2em]' : 'text-[1.7em] h-[1.7em]'}`}
                 />
@@ -193,4 +180,4 @@ const Galery = () => {
     );
 };
 
-export default Galery;
+export default GalleryPageSection;
