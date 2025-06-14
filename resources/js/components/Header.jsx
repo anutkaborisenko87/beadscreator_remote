@@ -5,7 +5,7 @@ import LocaleSettingsProfile from "@/components/LocaleSettingsProfile.jsx";
 import {useSelector} from "react-redux";
 
 const Header = () => {
-    const {locale} = usePage().props;
+    const {locale, header_text} = usePage().props;
     const {width} = useWindowSize();
     const user = useSelector(state => state.authUser);
     const mainUrl = user.user?.roles?.name === 'super_admin' ? '/admin_beadscreator' : `/${locale}`
@@ -30,7 +30,7 @@ const Header = () => {
                 { width > 700 ?
                     <div className="text-center mx-auto w-2/3">
                         <h1 className="text-[calc(100vw*0.03)] font-bold">
-                            Ласкаво просимо у світ креативності з бісером!
+                            {header_text.title ?? ''}
                         </h1>
                     </div>
                     : <></>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Translate;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use App\Http\Resources\PagesResource;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Page extends Model
 {
     use CrudTrait;
+    use Translate;
     protected $fillable = [
         'slug',
         'home',
@@ -17,20 +19,6 @@ class Page extends Model
         'status',
         'deletable'
     ];
-
-    /**
-     * @param int $lang_id
-     * @return HasOne
-     */
-    public function translate(int $lang_id = 0): HasOne
-    {
-        if ($lang_id === 0) {
-            $locale = app()->getLocale();
-            $language = Language::where('slug', $locale)->first() ?? Language::where('default', true)->first();
-            $lang_id = $language->id;
-        }
-        return $this->hasOne(PageLang::class)->where('language_id', $lang_id);
-    }
 
     public static function getNavbarMenu(): array
     {
