@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -20,14 +21,14 @@ class AuthController extends Controller
         $user->assignRole('user');
         Auth::login($user);
         $request->session()->regenerate();
-        return redirect()->back()->with('success', 'You are logged in');
+        return redirect()->back()->with('success', __('auth.register_success'));
     }
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
         $user = User::where('email', $request->input('email'))->first();
         if ($user->blocked) {
-            return redirect()->back()->with('error', 'You are blocked');
+            return redirect()->back()->with('error', __('auth.blocked_user'));
         }
         if ($user && $user->password === null) {
             $status = Password::sendResetLink(['email' => $user->email]);
@@ -42,15 +43,15 @@ class AuthController extends Controller
             if ($request->validated()['remember']) {
                 $request->session()->keep('remember');
             }
-            return redirect()->back()->with('success', 'You are logged in');
+            return redirect()->back()->with('success', __('auth.logged_in'));
         }
-        return redirect()->back()->with('error', 'Invalid credentials');
+        return redirect()->back()->with('error', __('auth.invalid_credentials'));
 
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect()->back()->with('success', 'Logout successfully');
+        return redirect()->back()->with('success', __('auth.logged_out'));
     }
 }

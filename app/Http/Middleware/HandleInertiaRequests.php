@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Language;
+use App\Models\Layouts;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -46,6 +47,15 @@ class HandleInertiaRequests extends Middleware
         if (!is_null($user)) {
             $user->setRelation('roles', $user->roles->first());
         }
+        $layouts = Layouts::with('translate')->get();
+        $layouts = $layouts->mapWithKeys(function ($item) {
+            $data['title'] = $item->translate->title;
+            if (!is_null($item->link)) {
+                $data['link'] = $item->link;
+            }
+            return [$item->slug => $data];
+
+        });
 
 
         return array_merge(parent::share($request), [
@@ -59,6 +69,6 @@ class HandleInertiaRequests extends Middleware
             'locale' => $locale ?? '',
             'current_lang' => array_values($currentLang)[0],
             'nav_menu' => $navMenu,
-        ]);
+        ], $layouts->toArray());
     }
 }
