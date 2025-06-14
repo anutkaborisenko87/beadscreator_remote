@@ -20,7 +20,7 @@ class PageDataResource extends JsonResource
                 'title' => env('APP_NAME') . " :: " .$this->translate->title,
                 'intro' => $this->translate->intro,
                 'date' => $this->publish_up,
-                'sections' => []
+                'sections' => $this->sections->toArray(),
             ],
             'meta' => [
                 'seo' => [

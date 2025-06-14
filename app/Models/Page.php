@@ -6,6 +6,7 @@ use App\Traits\Translate;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use App\Http\Resources\PagesResource;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Page extends Model
@@ -43,5 +44,10 @@ class Page extends Model
                 $page->translate()->create([...$value, 'language_id' => $key]);
             }
         }
+    }
+
+    public function sections(): HasMany
+    {
+        return $this->hasMany(PageSection::class)->with('translate');
     }
 }

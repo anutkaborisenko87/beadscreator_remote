@@ -167,6 +167,27 @@ class LayoutSeeder extends Seeder
                   $uaId => ['title' => 'Або зареєструватися за допомогою'],
               ]
           ],
+          [
+              'slug' => 'order_by_popularity',
+              'translate' => [
+                  $enId => ['title' => 'By popularity'],
+                  $uaId => ['title' => 'За популярністю'],
+              ]
+          ],
+          [
+              'slug' => 'order_by_oldest',
+              'translate' => [
+                  $enId => ['title' => 'First the oldest'],
+                  $uaId => ['title' => 'Спочатку найдавніші'],
+              ]
+          ],
+          [
+              'slug' => 'order_by_newest',
+              'translate' => [
+                  $enId => ['title' => 'Newest first'],
+                  $uaId => ['title' => 'Спочатку найновіші'],
+              ]
+          ],
         ];
         foreach ($layouts as $layout) {
             $data = [];
