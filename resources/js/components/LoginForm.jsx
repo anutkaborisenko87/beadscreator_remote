@@ -33,14 +33,15 @@ const LoginForm = () => {
     return (
         <>
             <div className={'flex bg-[#1F51BD] h-[100px] justify-center items-center'}>
-                <h2 className={'text-[#ffffff]'}>Увійти на сайт</h2>
+                <h2 className={'text-[#ffffff]'}>{props.login_popup_title.title ?? ''}</h2>
             </div>
             <div className={'bg-[#AEC2ED] p-[1em] flex flex-col gap-[0.5em]'}>
                 <form className={'p-[1em] flex flex-col gap-[0.5em]'} onSubmit={handleLogin}>
                     <div className='flex flex-col p-[1em] justify-center items-start relative'>
                         {emailLabelVisible && <label htmlFor="email"
-                                                     className={'absolute top-[15%] left-[3%] text-[0.75em] text-[#47484b] bg-[#D9D9D9]'}>Введіть
-                            email</label>}
+                                                     className={'absolute top-[15%] left-[3%] text-[0.75em] text-[#47484b] bg-[#D9D9D9]'}>
+                            {props.login_popup_email_placeholder.title ?? ''}
+                        </label>}
                         <input type="email"
                                id={'email'}
                                onFocus={() => setEmailLabelVisible(true)}
@@ -51,15 +52,16 @@ const LoginForm = () => {
                                    setErrors((prevState) => ({...prevState, email: null}));
                                    setFormInputs((prevState) => ({...prevState, email: e.target.value}));
                                }}
-                               placeholder={'Введіть email'}
+                               placeholder={props.login_popup_email_placeholder.title ?? ''}
                                className={'border-0 px-[1.5em] py-[1em] placeholder-[#0E0448] w-[95%] focus:outline-[#47484b] focus:ring-0 focus:border-transparent bg-[#D9D9D9] rounded-[10px]'}
                         />
                         {errors?.email && <p className={'text-xs text-[#e51212] px-[1.5em]'}>{errors.email}</p>}
                     </div>
                     <div className='flex flex-col p-[1em] justify-center items-start relative'>
                         {passwordLabelVisible && <label htmlFor="password"
-                                                        className={'absolute top-[15%] left-[3%] text-[0.75em] text-[#47484b] bg-[#D9D9D9]'}>Введіть
-                            пароль</label>}
+                                                        className={'absolute top-[15%] left-[3%] text-[0.75em] text-[#47484b] bg-[#D9D9D9]'}>
+                            {props.login_popup_password_placeholder.title ?? ''}
+                        </label>}
                         <input type={passwordInputType}
                                id={'password'}
                                onFocus={() => setPasswordLabelVisible(true)}
@@ -70,7 +72,7 @@ const LoginForm = () => {
                                    ...prevState,
                                    password: e.target.value
                                }))}
-                               placeholder={'Введіть пароль'}
+                               placeholder={props.login_popup_password_placeholder.title ?? ''}
                                className={'border-0 px-[1.5em] py-[1em] placeholder-[#0E0448] w-[95%] focus:outline-[#47484b] focus:ring-0 focus:border-transparent bg-[#D9D9D9] rounded-[10px]'}
                         />
                         {errors?.password && <p className={'text-xs text-[#e51212] px-[1.5em]'}>{errors.password}</p>}
@@ -100,30 +102,30 @@ const LoginForm = () => {
                                 }
                                 className="form-checkbox h-[15px] w-[15px] bg-[#A7DCEB] border-[#03627C] rounded focus:ring-[#03627C]"
                             />
-                            <span className="ml-2 text-gray-700">Запам'ятати мене</span>
+                            <span className="ml-2 text-gray-700">{props.login_popup_remember_label.title ?? ''}</span>
                         </label>
                         <button
                             className={'bg-transparent border-0 text-[#0E0448] cursor-pointer underline underline-offset-4'}
                             onClick={() => dispatch(openCloseModal({open: true, mode: 'register'}))}
                         >
-                            Зареєструватися
+                            {props.login_popup_sign_up_label.title ?? ''}
                         </button>
                     </div>
                     <button type="submit"
                             className={'bg-[#031945] text-[#ffffff] text-[1em] text-bold px-[1em] py-[1em] rounded-[10px] w-[90%] mx-auto my-[1em] cursor-pointer'}>
-                        Увійти
+                        {props.login_popup_sign_in_button.title ?? ''}
                     </button>
                 </form>
                 <div className="flex justify-between items-baseline w-[95%] mx-auto my-0">
                     <button
                         className={'bg-transparent border-0 text-[#0E0448] cursor-pointer underline underline-offset-4'}
                     >
-                        Забуди паполь?
+                        {props.login_popup_forgot_password_link.title ?? ''}
                     </button>
                 </div>
                 <div className="flex justify-between items-baseline w-[95%] mx-auto my-0 gap-[0.5em]">
                     <hr className="flex-1 border-t border-[#0E0448]"/>
-                    <span className="px-4 text-gray-700">Або увійти за допомогою</span>
+                    <span className="px-4 text-gray-700">{props.login_popup_google_auth.title ?? ''}</span>
                     <hr className="flex-1 border-t border-[#0E0448]"/>
                 </div>
                 <a href="/auth/google/redirect"

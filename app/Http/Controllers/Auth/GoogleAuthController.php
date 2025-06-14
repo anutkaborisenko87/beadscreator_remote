@@ -19,7 +19,6 @@ class GoogleAuthController extends Controller
             session(['redirect_url' => $redirectUrl]);
             return  Socialite::driver('google')->redirect();
         } catch (Exception $exception) {
-            Log::channel('debug')->error($exception->getMessage());
             return redirect()->back()->with('error', $exception->getMessage());
         }
     }
@@ -46,13 +45,12 @@ class GoogleAuthController extends Controller
             }
             $redirectUrl = session('redirect_url', url('/'));
             if ($user->blocked) {
-                return redirect($redirectUrl)->with('error', 'You are blocked');
+                return redirect($redirectUrl)->with('error', __('auth.blocked_user'));
             }
             Auth::login($user);
             session()->forget('redirect_url');
-            return redirect($redirectUrl)->with('success', 'You are logged in');
+            return redirect($redirectUrl)->with('success', __('auth.logged_in'));
         } catch (Exception $exception) {
-            Log::channel('debug')->error($exception->getMessage());
             return redirect()->back()->with('error', $exception->getMessage());
         }
     }
