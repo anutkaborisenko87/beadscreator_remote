@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCanvasGrid } from "../hooks/useCanvasGrid";
 import { drawGrid } from "../utils/drawGrid";
 import { addCell, commitDrawing, setDrawnCells } from "../store/gridSlice.js";
-import { floodFill } from "../utils/floodFill"; // ваш алгоритм заливки
+import { floodFill } from "../utils/floodFill";
 
 export const CanvasGrid = ({ offset = false }) => {
     const dispatch = useDispatch();
@@ -222,6 +222,18 @@ export const CanvasGrid = ({ offset = false }) => {
         setClipboard(copied);
     };
 
+    /**
+     * Pastes the contents of the clipboard onto the drawing grid at the specified target cell.
+     *
+     * The function adjusts the position of the clipboard contents relative to the target cell,
+     * and merges it into the current set of drawn cells. If there is no clipboard data or a target cell
+     * is not provided, the function returns without making any changes.
+     *
+     * @function
+     * @param {Object} targetCell - The cell on the grid onto which the clipboard contents should be pasted.
+     * @param {number} targetCell.col - The column index of the target cell.
+     * @param {number} targetCell.row - The row index of the target cell.
+     */
     const pasteSelection = (targetCell) => {
         if (!clipboard || !targetCell) return;
         const newCells = { ...drawnCells };
@@ -242,7 +254,6 @@ export const CanvasGrid = ({ offset = false }) => {
             if (tool !== "selection") return;
             if (e.ctrlKey && e.code === "KeyC") {
                 e.preventDefault();
-                console.log("Ctrl+C pressed – calling copySelection");
                 copySelection();
             }
             if (e.ctrlKey && e.code === "KeyV") {
@@ -261,7 +272,6 @@ export const CanvasGrid = ({ offset = false }) => {
     const handleContextMenu = (e) => {
         if (tool !== "selection") return;
         e.preventDefault();
-        console.log("Context menu triggered", e);
     };
 
     return (
