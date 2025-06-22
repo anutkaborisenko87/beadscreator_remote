@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Translate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PatternCategory extends Model
@@ -41,6 +42,11 @@ class PatternCategory extends Model
         }
 
         return $tree;
+    }
+
+    public function patterns(): BelongsToMany
+    {
+        return $this->belongsToMany(Pattern::class, 'pattern_categories_patterns', 'pattern_category_id', 'pattern_id');
     }
 
 }
