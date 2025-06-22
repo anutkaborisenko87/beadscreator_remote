@@ -7,7 +7,6 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use App\Http\Resources\PagesResource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Page extends Model
 {
@@ -27,14 +26,14 @@ class Page extends Model
         return PagesResource::collection($availablePages)->resolve();
     }
 
-    public static function createTranslation(array $data, self $page)
+    public static function createTranslation(array $data, self $page): void
     {
         foreach ($data as $key => $value) {
             $page->translate()->create([...$value, 'language_id' => $key]);
         }
     }
 
-    public static function updateTranslation(array $data, self $page)
+    public static function updateTranslation(array $data, self $page): void
     {
         foreach ($data as $key => $value) {
             $translation = $page->translate($key)->first();

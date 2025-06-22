@@ -1,8 +1,11 @@
 <?php
+
+
 if (!function_exists('getPatternCategoryList')) {
     function getPatternCategoryList(): array
     {
-        return [];
+        $categories = \App\Models\PatternCategory::getCategoryTree();
+        return \App\Http\Resources\PatternCategoryResource::collection($categories)->resolve();
     }
 }
 
