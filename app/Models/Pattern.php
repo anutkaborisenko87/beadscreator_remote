@@ -14,6 +14,9 @@ class Pattern extends Model
         'shared',
         'user_id',
         'preview_image',
+        'photo',
+        'pngLink',
+        'jpgLink',
         'pattern_data'
     ];
     public function user(): BelongsTo
