@@ -18,7 +18,10 @@ return new class extends Migration
             $table->boolean('published')->default(false);
             $table->boolean('shared')->default(false);
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('photo')->nullable();
             $table->string('preview_image')->nullable();
+            $table->string('pngLink')->nullable();
+            $table->string('jpgLink')->nullable();
             $table->json('pattern_data')->nullable();
             $table->timestamps();
         });

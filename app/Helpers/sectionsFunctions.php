@@ -1,6 +1,9 @@
 <?php
 
 
+use App\Http\Resources\PatternGalleryResource;
+use Illuminate\Support\Facades\Request;
+
 if (!function_exists('getPatternCategoryList')) {
     function getPatternCategoryList(): array
     {
@@ -19,7 +22,39 @@ if (!function_exists('getMainRatedPicturesList')) {
 if (!function_exists('getMainGalleryItemsList')) {
     function getMainGalleryItemsList(): array
     {
-        return [];
+        $request = request();
+        $patterns = \App\Models\Pattern::query()->where('shared', true);
+        if ($request->has('category')) {
+            $patterns = $patterns->whereHas('category', function ($query) use ($request) {
+               $query->where('id', $request->get('category'));
+            });
+        }
+        if ($request->has('sort')) {
+            switch ($request->get('sort')) {
+                case 'newest':
+                    $orderBy = 'created_at';
+                    $order = 'desc';
+                    break;
+                case 'oldest':
+                    $orderBy = 'created_at';
+                    $order = 'asc';
+                    break;
+                case 'popularity':
+                    $orderBy = 'id';
+                    $order = 'asc';
+                    break;
+                default:
+                    $orderBy = 'id';
+                    $order = 'desc';
+                    break;
+            }
+            $patterns = $patterns->orderBy($orderBy, $order);
+        }
+        $patterns = $patterns->with('user')->paginate(5);
+        $data = PatternGalleryResource::collection($patterns->items())->resolve();
+        $response = $patterns->toArray();
+        $response['data'] = $data;
+        return $response;
     }
 }
 

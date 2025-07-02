@@ -13,12 +13,12 @@ const Page = () => {
             {props.data.sections.map((item) => {
                 console.log('item', item);
                 return (
-                    <>
+                    <section key={item.id}>
                         {item.slug === 'home_page_section' && <HomePageSection data={item}/>}
                         {item.slug === 'gallery_page_section' && <GalleryPageSection data={item}/>}
                         {item.slug === 'aboutus_page_section' && <AboutUsPageSection data={item}/>}
                         {item.slug === 'editor_page_section' && <EditorPageSection data={item}/>}
-                    </>
+                    </section>
 
             )
             })}

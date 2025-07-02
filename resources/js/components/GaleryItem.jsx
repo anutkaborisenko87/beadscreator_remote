@@ -21,14 +21,17 @@ const GaleryItem = ({item}) => {
     }
     const {width} = useWindowSize();
     return (
-        <div className={`${width > 900 ? 'galery-item-block' : 'galery-item-block-mobile'} galery-item-block-background`}>
-            <div className={width > 900 ? `flex flex-col justify-start items-stretch w-1/3 px-[2em] gap-[2em]` : 'flex justify-between items-center px-[1.5em]  gap-[1em]'}>
+        <div
+            className={`${width > 900 ? 'galery-item-block' : 'galery-item-block-mobile'} galery-item-block-background`}>
+            <div
+                className={width > 900 ? `flex flex-col justify-start items-stretch w-1/3 px-[2em] gap-[2em]` : 'flex justify-between items-center px-[1.5em]  gap-[1em]'}>
                 <h3 className={`text-[2em]`} style={{color: color}}>{item.title}</h3>
                 <p style={{color: color}}>{item.description}</p>
-                <div className={width > 900 ? 'flex items-center justify-between' : 'flex flex-col justify-between items-stretch gap-[1em]'}>
+                <div
+                    className={width > 900 ? 'flex items-center justify-between' : 'flex flex-col justify-between items-stretch gap-[1em]'}>
                     <div className={'flex items-center gap-[0.5em]'}>
                         <Icon name={'person_location'} size={24} color={color}/>
-                        <Link className={width > 900 ? `text-[1.3em]` : 'text-[0.8em]'} href={item.author.link}
+                        <Link className={width > 900 ? `text-[1.3em]` : 'text-[0.8em]'} href={item.author.url}
                               style={{color: color}}>{item.author.name}</Link>
                     </div>
                     <div className={'flex items-center gap-[0.5em]'}>
@@ -37,27 +40,34 @@ const GaleryItem = ({item}) => {
                               style={{color: color}}>{item.comments.count}</Link>
                     </div>
                     <div className={'flex items-center gap-[0.5em]'}>
-                        {item.likes.liked ? <Icon className={'cursor-pointer'} name={'liked'} size={24} color={color}/> :
+                        {item.likes.liked ?
+                            <Icon className={'cursor-pointer'} name={'liked'} size={24} color={color}/> :
                             <Icon className={'cursor-pointer'} name={'likes'} size={24} color={color}/>}
-                        <p className={width > 900 ? `text-[1.3em]` : 'text-[0.8em]'} style={{color: color}}>{item.likes.count}</p>
+                        <p className={width > 900 ? `text-[1.3em]` : 'text-[0.8em]'}
+                           style={{color: color}}>{item.likes.count}</p>
                     </div>
                 </div>
             </div>
-            <div className={width > 900 ? `flex flex-col justify-start items-center w-1/5` : 'flex justify-center items-center  gap-[1em]'}>
-                <img src={item.photo} alt={item.title} className={'w-1/2'}/>
+            <div
+                className={width > 900 ? `flex flex-col justify-start items-center w-1/5` : 'flex justify-center items-center  gap-[1em]'}>
+                {item.photo !== null && <img src={item.photo} alt={item.title} className={'w-1/2'}/>}
             </div>
-            <div className={width > 900 ? `flex flex-col justify-center items-center gap-[5em]  px-[2em]` : `flex justify-between items-center gap-[1em]  px-[1em]`}>
-                <button className={`galery-download-button font-bold`}>
-                    <Icon name={'download'} size={24} color={color}/>
-                    PNG
-                </button>
-                <button className={`galery-download-button font-bold`}>
-                    <Icon name={'download'} size={24} color={color}/>
-                    JPG
-                </button>
+            <div
+                className={width > 900 ? `flex flex-col justify-center items-center gap-[5em]  px-[2em]` : `flex justify-between items-center gap-[1em]  px-[1em]`}>
+                {
+                    item.pngLink !== null && <button className={`galery-download-button font-bold`}>
+                        <Icon name={'download'} size={24} color={color}/> PNG
+                    </button>
+                }
+                {
+                    item.jpgLink !== null && <button className={`galery-download-button font-bold`}>
+                        <Icon name={'download'} size={24} color={color}/> JPG
+                    </button>
+                }
             </div>
-            <div className={`flex flex-col justify-center items-center ${width > 900 ? 'w-1/4 px-[2em]' : 'w-5/6 px-[1em]'}`}>
-                <img src={item.photo} alt={item.title} className={'w-full'}/>
+            <div
+                className={`flex flex-col justify-center items-center ${width > 900 ? 'w-1/4 px-[2em]' : 'w-5/6 px-[1em]'}`}>
+                <img src={item.preview} alt={item.title} className={'w-full'}/>
             </div>
         </div>
     );
