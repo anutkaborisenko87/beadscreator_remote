@@ -6,6 +6,7 @@ use App\Models\Language;
 use App\Models\Layouts;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -39,24 +40,25 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $locale = LocaleMiddleware::getLocale();
-        $currentLang = array_filter(Language::getDropdownList(), function ($item) {
+        $currentLang = Schema::hasTable('languages') ? array_filter(Language::getDropdownList(), function ($item) {
             return $item['current'] === true;
-        });
-        $navMenu = Page::getNavbarMenu();
+        }) : [];
+        $navMenu = Schema::hasTable('languages') ? Page::getNavbarMenu() : [];
         $user = !is_null(auth()->user()) ? auth()->user()->load('roles') : null;
         if (!is_null($user)) {
             $user->setRelation('roles', $user->roles->first());
         }
-        $layouts = Layouts::with('translate')->get();
-        $layouts = $layouts->mapWithKeys(function ($item) {
-            $data['title'] = $item->translate->title;
-            if (!is_null($item->link)) {
-                $data['link'] = $item->link;
-            }
-            return [$item->slug => $data];
+        $layouts = Schema::hasTable('languages') ? Layouts::with('translate')->get() : [];
+        if (!empty($layouts)) {
+            $layouts = $layouts->mapWithKeys(function ($item) {
+                $data['title'] = $item->translate->title;
+                if (!is_null($item->link)) {
+                    $data['link'] = $item->link;
+                }
+                return [$item->slug => $data];
 
-        });
-
+            });
+        }
 
         return array_merge(parent::share($request), [
             'flash' => [
@@ -67,8 +69,8 @@ class HandleInertiaRequests extends Middleware
             'user' => $user,
             'url' => is_null($locale) ? $request->getPathInfo() : str_replace("/$locale", "", $request->getPathInfo()),
             'locale' => $locale ?? '',
-            'current_lang' => array_values($currentLang)[0],
+            'current_lang' => !empty($currentLang) ? array_values($currentLang)[0] : [],
             'nav_menu' => $navMenu,
-        ], $layouts->toArray());
+        ], !empty($layouts) ? $layouts->toArray() : []);
     }
 }
