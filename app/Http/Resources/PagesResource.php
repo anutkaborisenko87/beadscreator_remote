@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Vinkla\Hashids\Facades\Hashids;
 
 class PagesResource extends JsonResource
 {
@@ -15,7 +16,7 @@ class PagesResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'id' => Hashids::encode($this->id),
             'slug' => $this->slug,
             'home' => $this->home,
             'title' => $this->translate->title,

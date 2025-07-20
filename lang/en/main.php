@@ -16,4 +16,6 @@ return [
     'page_unavailable_error_title' => 'Service Unavailable',
     'page_unavailable_error_intro' => 'We\'re currently experiencing high traffic or undergoing maintenance',
     'page_unavailable_error_later' => 'Please check back again later.',
+    'wrong_user_id' => 'Wrong usedId check your info.',
+    'gallery_author_title' => 'Author\'s patterns: '
 ];
