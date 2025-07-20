@@ -16,5 +16,7 @@ return [
     'page_unavailable_error_title' => 'Сервіс недоступний',
     'page_unavailable_error_intro' => 'Наразі ми переживаємо високий трафік або проводимо технічне обслуговування.',
     'page_unavailable_error_later' => 'Будь ласка, спробуйте зайти пізніше.',
+    'wrong_user_id' => 'Неправильний usedId, перевірте свою інформацію.',
+    'gallery_author_title' => 'Схеми автора: '
 ];
 

@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Vinkla\Hashids\Facades\Hashids;
 
 class PageSectionsService
 {
@@ -53,6 +56,20 @@ class PageSectionsService
     private function parseSectionFunction($functionName)
     {
         return function_exists($functionName) ? $functionName() : [];
+    }
+
+    public static function getGalleryAuthorSection(string $userId): array
+    {
+        $decodedUserId = Hashids::decode($userId);
+        $decodedUserId = $decodedUserId[0] ?? null;
+        if (!$decodedUserId) throw new NotFoundHttpException(__('main.wrong_user_id'));
+        $author = User::findOrFail($decodedUserId);
+        return [
+            'slug' => 'gallery_author_section',
+            'title' => __('main.gallery_author_title'),
+            'author_name' => $author->login
+        ];
+
     }
 
 }
