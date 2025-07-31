@@ -31,8 +31,12 @@ const GaleryItem = ({item}) => {
                     className={width > 900 ? 'flex items-center justify-between' : 'flex flex-col justify-between items-stretch gap-[1em]'}>
                     <div className={'flex items-center gap-[0.5em]'}>
                         <Icon name={'person_location'} size={24} color={color}/>
-                        <Link className={width > 900 ? `text-[1.3em]` : 'text-[0.8em]'} href={item.author.url}
-                              style={{color: color}}>{item.author.name}</Link>
+                        {item.author.url !== null ?
+                            <Link className={width > 900 ? `text-[1.3em]` : 'text-[0.8em]'} href={item.author.url}
+                               style={{color: color}}>{item.author.name}</Link> :
+                            <h3 className={width > 900 ? `text-[1.3em]` : 'text-[0.8em]'} href={item.author.url}
+                                  style={{color: color}}>{item.author.name}</h3>
+                        }
                     </div>
                     <div className={'flex items-center gap-[0.5em]'}>
                         <Icon name={'comments'} size={24} color={color}/>

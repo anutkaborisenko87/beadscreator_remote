@@ -1,9 +1,8 @@
 <?php
 
 
-use App\Http\Resources\PatternGalleryResource;
 use App\Services\PatternService;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('getPatternCategoryList')) {
     function getPatternCategoryList(): array
@@ -24,7 +23,15 @@ if (!function_exists('getMainGalleryItemsList')) {
     function getMainGalleryItemsList(): array
     {
         $userId = request()->route('userId');
+
         if ($userId) PatternService::getFilteredPatternsForAuthorGalery($userId);
+        if (request()->path() === 'my-profile') {
+            $userId = Auth::user()->id;
+            return [
+                'gallery_patterns' => PatternService::getAuthorPatterns($userId, false),
+                'drafts' => PatternService::getAuthorPatterns($userId, true)
+            ];
+        }
         return PatternService::getFilteredPatternsForCommonGallery();
     }
 }

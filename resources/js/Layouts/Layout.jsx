@@ -9,16 +9,25 @@ import LoginForm from "../components/LoginForm.jsx";
 import RegisterForm from "../components/RegisterForm.jsx";
 import {usePage} from "@inertiajs/react";
 import FlashAlert from "@/components/FlashAllert.jsx";
+import {openCloseModal} from "@/store/modalSlice.js";
 
 const Layout = ({children}) => {
     const props = usePage().props;
     const dispatch = useDispatch();
+    const { url } = usePage();
     const {mode} = useSelector((state) => state.themeMode);
     const {modalMode} = useSelector((state) => state.modal);
     useEffect(() => {
         const user = props.user;
         dispatch(setUser(user))
     }, [children]);
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('modal') === 'login') {
+            dispatch(openCloseModal({ open: true, mode: 'login' }));
+        }
+    }, [url, dispatch]);
+
     return (
         <>
             <Modal>

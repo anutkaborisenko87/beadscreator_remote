@@ -52,6 +52,20 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->back()->with('success', __('auth.logged_out'));
+        $previousUrl = url()->previous();
+
+        $protectedPaths = config('protected_paths.logout_redirect_exceptions', []);
+        $isProtected = false;
+        foreach ($protectedPaths as $path) {
+            if (strpos($previousUrl, $path) !== false) {
+                $isProtected = true;
+                break;
+            }
+        }
+
+        $redirectUrl = $isProtected ? '/' : $previousUrl;
+
+        return redirect($redirectUrl)->with('success', __('auth.logged_out'));
+
     }
 }

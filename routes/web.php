@@ -22,6 +22,7 @@ Route::get('auth/google/redirect', [\App\Http\Controllers\Auth\GoogleAuthControl
 Route::get('auth/google/callback', [\App\Http\Controllers\Auth\GoogleAuthController::class, 'callbackGoogle']);
 Route::get('/gallery/{userId}', [\App\Http\Controllers\GalleryController::class, 'indexAuthorGallery'])
     ->where('userId', '[A-Za-z0-9\-_]+');
+Route::get('/my-profile', [\App\Http\Controllers\ProfileController::class, 'index'])->middleware('auth');
 Route::get('/{slug?}', [PagesController::class, 'view'])
     ->where('slug', '[A-Za-z0-9\-/_]+')
     ->name('page');

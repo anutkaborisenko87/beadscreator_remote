@@ -17,5 +17,11 @@ return [
     'page_unavailable_error_intro' => 'We\'re currently experiencing high traffic or undergoing maintenance',
     'page_unavailable_error_later' => 'Please check back again later.',
     'wrong_user_id' => 'Wrong usedId check your info.',
-    'gallery_author_title' => 'Author\'s patterns: '
+    'gallery_author_title' => 'Author\'s patterns: ',
+    'profile_title' => 'My Profile',
+    'profile_user_title' => 'Full name:',
+    'profile_user_email' => 'Email:',
+    'profile_user_login' => 'Login:',
+    'profile_gallery_patterns_title' => 'My patterns',
+    'profile_drafts_title' => 'My drafts'
 ];

@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Http\Resources\PatternGalleryResource;
 use App\Models\Pattern;
+use App\QueryFilters\DraftPatternsSortBy;
+use App\QueryFilters\MyPatternsSortBy;
 use App\QueryFilters\PatternCategoryFilter;
 use App\QueryFilters\PatternsSortBy;
 use Illuminate\Pipeline\Pipeline;
@@ -14,8 +16,8 @@ class PatternService
 {
     public static function getFilteredPatternsForCommonGallery()
     {
-        $patterns = Pattern::query()->where('shared', true)->with('user');
-        return self::getPatternsList($patterns);
+        $patterns = Pattern::query()->where('shared', true)->with('user:id,login');
+        return self::getPatternsList($patterns, 'page', PatternsSortBy::class);
     }
 
     public static function getFilteredPatternsForAuthorGalery(string $userId)
@@ -26,18 +28,24 @@ class PatternService
         $patterns = Pattern::query()->where('shared', true)->whereHas('user', function ($query) use ($decodedUserId) {
             $query->where('user_id', $decodedUserId);
         });
-        return self::getPatternsList($patterns);
+        return self::getPatternsList($patterns, 'page', PatternsSortBy::class);
     }
 
-    private static function getPatternsList($queryBuilder): array
+    public static function getAuthorPatterns(int $authUserId, bool $draft)
+    {
+        $patterns = Pattern::query()->where('user_id', $authUserId)->where('published', !$draft);
+        return self::getPatternsList($patterns, $draft ? 'drafts_page' : 'gallery_patterns_page', $draft ? DraftPatternsSortBy::class : MyPatternsSortBy::class);
+    }
+
+    private static function getPatternsList($queryBuilder, string $pageName, string $sortByClass): array
     {
         $patterns = app(Pipeline::class)
             ->send($queryBuilder)
             ->through([
                 PatternCategoryFilter::class,
-                PatternsSortBy::class
+                $sortByClass
             ])->thenReturn();
-        $patterns = $patterns->paginate(5);
+        $patterns = $patterns->paginate(5, ['*'], $pageName);
         $data = PatternGalleryResource::collection($patterns->items())->resolve();
         $response = $patterns->toArray();
         $response['data'] = $data;

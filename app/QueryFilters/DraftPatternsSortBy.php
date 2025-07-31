@@ -2,7 +2,7 @@
 
 namespace App\QueryFilters;
 
-class PatternsSortBy extends BasePatternsSortBy
+class DraftPatternsSortBy extends BasePatternsSortBy
 {
     protected function sortKey(): string
     {

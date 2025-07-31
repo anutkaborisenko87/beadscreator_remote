@@ -15,7 +15,7 @@ class GoogleAuthController extends Controller
     public function redirect(Request $request)
     {
         try {
-            $redirectUrl = $request->headers->get('referer') ?? url('/');
+            $redirectUrl = parse_url($request->headers->get('referer'), PHP_URL_PATH) ?? url('/');
             session(['redirect_url' => $redirectUrl]);
             return  Socialite::driver('google')->redirect();
         } catch (Exception $exception) {

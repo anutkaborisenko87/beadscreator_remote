@@ -15,7 +15,13 @@ class PatternGalleryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $authUser = auth()->user();
+        $requestedAuthor = request()->route('userId');
         $encodedId = Hashids::encode($this->id);
+        $galleryUrl = $requestedAuthor === Hashids::encode($this->user->id) ? null : 'gallery/' . Hashids::encode($this->user->id);
+        if ($authUser && $authUser->id === $this->user->id) {
+            $galleryUrl = 'my-gallery';
+        }
         return [
             'id' => $encodedId,
             'title' => $this->title,
@@ -24,7 +30,7 @@ class PatternGalleryResource extends JsonResource
             'preview' => $this->preview_image,
             'author' => [
                 'name' => $this->user->login,
-                'url' => 'gallery/' . Hashids::encode($this->user->id)
+                'url' => $galleryUrl
             ],
             'comments' => [
                 'count' => 0,
