@@ -127,15 +127,29 @@ ul {
     @apply text-main-text-light dark:text-[#AEC2ED] positive:text-[#031945] negative:text-[#8FA8DE]
 }
 
-.dark .homepage-main-sections {
+.profile-main-section {
+    padding: 2em;
+    border-radius: 15px;
+    background: rgba(217, 217, 217, 0.6);
+    @apply text-main-text-light dark:text-[#AEC2ED] positive:text-[#031945] negative:text-[#8FA8DE]
+}
+
+.homepage-main-sections  ul{
+    padding: 1em;
+}
+
+.dark .homepage-main-sections,
+.dark .profile-main-section {
     background: rgba(31, 81, 189, 0.6);
 }
 
-.positive .homepage-main-sections {
+.positive .homepage-main-sections,
+.positive .profile-main-section {
     background: rgba(174, 194, 237, 0.6);
 }
 
-.negative .homepage-main-sections {
+.negative .homepage-main-sections,
+.negative .profile-main-section {
     background: rgba(84, 123, 205, 0.6);
 }
 
