@@ -2,8 +2,9 @@
 
 namespace App\QueryFilters;
 
-class PatternsSortBy extends BasePatternsSortBy
+class MyPatternsSortBy extends BasePatternsSortBy
 {
+
     protected function sortKey(): string
     {
         return $this->filterName();

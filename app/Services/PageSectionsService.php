@@ -69,7 +69,27 @@ class PageSectionsService
             'title' => __('main.gallery_author_title'),
             'author_name' => $author->login
         ];
+    }
 
+    public static function getProfileTitleSection(): array
+    {
+        return [
+            'slug' => 'profile_title_section',
+            'title' => __('main.profile_title')
+        ];
+    }
+
+    public static function getProfileUserSection(User $user): array
+    {
+        return [
+            'slug' => 'profile_user_section',
+            'name_title' => __('main.profile_user_title'),
+            'user_name' => $user->firstName . ' ' . $user->lastName,
+            'login_title' => __('main.profile_user_login'),
+            'user_login' => $user->login,
+            'email_title' => __('main.profile_user_email'),
+            'user_email' => $user->email
+        ];
     }
 
 }

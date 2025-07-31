@@ -17,6 +17,13 @@ return [
     'page_unavailable_error_intro' => 'Наразі ми переживаємо високий трафік або проводимо технічне обслуговування.',
     'page_unavailable_error_later' => 'Будь ласка, спробуйте зайти пізніше.',
     'wrong_user_id' => 'Неправильний usedId, перевірте свою інформацію.',
-    'gallery_author_title' => 'Схеми автора: '
+    'gallery_author_title' => 'Схеми автора: ',
+    'profile_title' => 'Мій профіль',
+    'profile_user_title' => 'Ім\'я:',
+    'profile_user_email' => 'Email:',
+    'profile_user_login' => 'Логін:',
+    'profile_gallery_patterns_title' => 'Мої схеми',
+    'profile_drafts_title' => 'Мої чорнетки'
+
 ];
 
