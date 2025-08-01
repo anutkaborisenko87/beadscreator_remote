@@ -22,7 +22,12 @@ Route::get('auth/google/redirect', [\App\Http\Controllers\Auth\GoogleAuthControl
 Route::get('auth/google/callback', [\App\Http\Controllers\Auth\GoogleAuthController::class, 'callbackGoogle']);
 Route::get('/gallery/{userId}', [\App\Http\Controllers\GalleryController::class, 'indexAuthorGallery'])
     ->where('userId', '[A-Za-z0-9\-_]+');
-Route::get('/my-profile', [\App\Http\Controllers\ProfileController::class, 'index'])->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('/my-profile', [\App\Http\Controllers\ProfileController::class, 'index']);
+    Route::get('/my-profile/edit', [\App\Http\Controllers\ProfileController::class, 'edit']);
+    Route::put('/my-profile/update', [\App\Http\Controllers\ProfileController::class, 'update'])->middleware('auth_profile');
+});
+
 Route::get('/{slug?}', [PagesController::class, 'view'])
     ->where('slug', '[A-Za-z0-9\-/_]+')
     ->name('page');

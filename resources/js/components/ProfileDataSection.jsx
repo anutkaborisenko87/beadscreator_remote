@@ -1,10 +1,12 @@
 import {useWindowSize} from "react-use";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Icon from "@/components/Icon.jsx";
+import {openCloseModal} from "@/store/modalSlice.js";
 
 const ProfileDataSection = ({data}) => {
     const {mode} = useSelector((state) => state.themeMode);
     const {width} = useWindowSize();
+    const dispatch = useDispatch();
     let color = '';
     switch (mode) {
         case 'positive':
@@ -36,7 +38,9 @@ const ProfileDataSection = ({data}) => {
                         {data.login_title} {data.user_login}
                     </h4>
                 </div>
-                <Icon name={'edit'} color={color} size={40} className={'mr-2 cursor-pointer'}/>
+                <Icon name={'edit'} color={color} size={40} className={'mr-2 cursor-pointer'} onClick={
+                    () => {dispatch(openCloseModal({ open: true, mode: 'update_profile' }))}
+                }/>
             </div>
         </div>
     );
