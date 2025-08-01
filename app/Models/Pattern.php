@@ -19,6 +19,9 @@ class Pattern extends Model
         'jpgLink',
         'pattern_data'
     ];
+    protected $casts = [
+        'pattern_data' => 'array'
+    ];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -128,7 +128,7 @@ ul {
 }
 
 .profile-main-section {
-    padding: 2em;
+    padding: 0.5em 1em;
     border-radius: 15px;
     background: rgba(217, 217, 217, 0.6);
     @apply text-main-text-light dark:text-[#AEC2ED] positive:text-[#031945] negative:text-[#8FA8DE]

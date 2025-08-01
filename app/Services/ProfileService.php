@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\DTO\ProfileDataDTO;
+use App\Http\Resources\PofileDataResource;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileService
@@ -30,6 +33,19 @@ class ProfileService
         }
         $pageData['data']['sections'] = $newSectionsArray;
         return $pageData;
+    }
+
+    public function getAuthUserData(): array
+    {
+        return (new PofileDataResource(Auth::user()))->resolve();
+    }
+
+    public function updateAuthUserData(array $userData): array
+    {
+        $updatedUser = User::findOrFail(Auth::id());
+        $profileDataDTO = ProfileDataDTO::fromArray($userData);
+        $updatedUser->update($profileDataDTO->toArray());
+        return (new PofileDataResource($updatedUser))->resolve();
     }
 
 }

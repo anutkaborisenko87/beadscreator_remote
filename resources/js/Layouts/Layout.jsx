@@ -10,6 +10,7 @@ import RegisterForm from "../components/RegisterForm.jsx";
 import {usePage} from "@inertiajs/react";
 import FlashAlert from "@/components/FlashAllert.jsx";
 import {openCloseModal} from "@/store/modalSlice.js";
+import UpdateProfileForm from "@/components/UpdateProfileForm.jsx";
 
 const Layout = ({children}) => {
     const props = usePage().props;
@@ -33,6 +34,7 @@ const Layout = ({children}) => {
             <Modal>
                 {modalMode === 'login' && <LoginForm />}
                 {modalMode === 'register' && <RegisterForm />}
+                {modalMode === 'update_profile' && <UpdateProfileForm />}
             </Modal>
             <Header/>
             <div className={mode}>
