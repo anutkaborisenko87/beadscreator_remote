@@ -7,6 +7,7 @@ import EditorPageSection from "@/components/EditorPageSection.jsx";
 import AuthorTitleSection from "@/components/AuthorTitleSection.jsx";
 import ProfileBreadcrumbs from "@/components/ProfileBreadcrumbs.jsx";
 import ProfileDataSection from "@/components/ProfileDataSection.jsx";
+import ProfileGallerySectioms from "@/components/ProfileGallerySectioms.jsx";
 
 const Page = () => {
     const props = usePage().props;
@@ -17,6 +18,8 @@ const Page = () => {
                 console.log('Page item: ', item);
                 return (
                     <section key={item.slug}>
+                        {item.slug === 'gallery_patterns' && <ProfileGallerySectioms data={item}/>}
+                        {item.slug === 'drafts' && <ProfileGallerySectioms data={item}/>}
                         {item.slug === 'profile_title_section' && <ProfileBreadcrumbs data={item}/>}
                         {item.slug === 'profile_user_section' && <ProfileDataSection data={item}/>}
                         {item.slug === 'home_page_section' && <HomePageSection data={item}/>}

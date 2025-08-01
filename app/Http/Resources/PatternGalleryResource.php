@@ -22,12 +22,14 @@ class PatternGalleryResource extends JsonResource
         if ($authUser && $authUser->id === $this->user->id) {
             $galleryUrl = 'my-gallery';
         }
+        $itemLink = $authUser && $authUser->id === $this->user->id ? 'editor/' . $encodedId : null;
         return [
             'id' => $encodedId,
             'title' => $this->title,
             'description' => $this->description,
             'photo' => $this->photo,
             'preview' => $this->preview_image,
+            'link' => $itemLink,
             'author' => [
                 'name' => $this->user->login,
                 'url' => $galleryUrl
@@ -41,8 +43,8 @@ class PatternGalleryResource extends JsonResource
                 'count' => 0
             ],
             'pngLink' => $this->pngLink,
-            'jpgLink' => $this->jpgLink
-
+            'jpgLink' => $this->jpgLink,
+            'created_at' => $this->created_at . '/' . $this->updated_at,
         ];
     }
 }
