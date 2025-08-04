@@ -29,7 +29,8 @@ if (!function_exists('getMainGalleryItemsList')) {
             $userId = Auth::user()->id;
             return [
                 'gallery_patterns' => PatternService::getAuthorPatterns($userId, false),
-                'drafts' => PatternService::getAuthorPatterns($userId, true)
+                'drafts' => PatternService::getAuthorPatterns($userId, true),
+                'liked' => PatternService::getLikedPatterns($userId),
             ];
         }
         return PatternService::getFilteredPatternsForCommonGallery();

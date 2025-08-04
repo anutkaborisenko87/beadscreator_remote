@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
             LayoutSeeder::class,
             PageSectionSeeder::class,
             PatternCategorySeeder::class,
-            PatternsSeeder::class
+            PatternsSeeder::class,
+            CommentSeeder::class,
+            LikeSeeder::class,
         ]);
     }
 }

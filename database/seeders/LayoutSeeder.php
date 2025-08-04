@@ -251,6 +251,13 @@ class LayoutSeeder extends Seeder
                     $uaId => ['title' => 'Спочатку найновіші'],
                 ]
             ],
+            [
+                'slug' => 'empty_data_input_placeholder',
+                'translate' => [
+                    $enId => ['title' => 'There is no data here yet.'],
+                    $uaId => ['title' => 'Тут ще немає даних.'],
+                ]
+            ],
         ];
         foreach ($layouts as $layout) {
             $data = [];
