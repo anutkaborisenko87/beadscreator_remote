@@ -51,7 +51,7 @@ const ProfileGalleryItem = ({data, section_slug, per_page}) => {
                         className={`flex flex-col justify-start items-start gap-[2em]`}>
                         <h4 className={`text-[2em]`} style={{color: color}}>{data.title}</h4>
                         <div
-                            className={'flex items-center justify-between'}>
+                            className={'flex items-center justify-between gap-[1em]'}>
                             <div className={'flex items-center gap-[0.5em]'}>
                                 <Icon name={'person_location'} size={24} color={color}/>
                                 {data.author.url !== null ?
