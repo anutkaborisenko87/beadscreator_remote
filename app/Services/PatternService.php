@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Resources\PatternGalleryResource;
 use App\Models\Pattern;
 use App\QueryFilters\DraftPatternsSortBy;
+use App\QueryFilters\LikedPatternsSortBy;
 use App\QueryFilters\MyPatternsSortBy;
 use App\QueryFilters\PatternCategoryFilter;
 use App\QueryFilters\PatternsSortBy;
@@ -16,7 +17,7 @@ class PatternService
 {
     public static function getFilteredPatternsForCommonGallery()
     {
-        $patterns = Pattern::query()->where('shared', true)->with('user:id,login');
+        $patterns = Pattern::query()->where('shared', true)->with('user:id,login', 'likes', 'comments');
         return self::getPatternsList($patterns, 'page', PatternsSortBy::class);
     }
 
@@ -33,8 +34,17 @@ class PatternService
 
     public static function getAuthorPatterns(int $authUserId, bool $draft)
     {
-        $patterns = Pattern::query()->where('user_id', $authUserId)->where('published', !$draft);
+        $patterns = Pattern::query()->where('user_id', $authUserId)->where('published', !$draft)->with('user:id,login');
+        if (!$draft) $patterns = $patterns->with('likes', 'comments');
         return self::getPatternsList($patterns, $draft ? 'drafts_page' : 'gallery_patterns_page', $draft ? DraftPatternsSortBy::class : MyPatternsSortBy::class);
+    }
+
+    public static function getLikedPatterns(int $authUserId)
+    {
+        $patterns = Pattern::query()->where('published', true)->whereHas('likes', function ($query) use ($authUserId) {
+            $query->where('user_id', $authUserId);
+        })->with('user:id,login', 'likes', 'comments');
+        return self::getPatternsList($patterns, 'likes_page', LikedPatternsSortBy::class);
     }
 
     private static function getPatternsList($queryBuilder, string $pageName, string $sortByClass): array

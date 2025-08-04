@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Vinkla\Hashids\Facades\Hashids;
@@ -23,6 +24,10 @@ class PatternGalleryResource extends JsonResource
             $galleryUrl = 'my-gallery';
         }
         $itemLink = $authUser && $authUser->id === $this->user->id ? 'editor/' . $encodedId : null;
+        $liked = $authUser ? $this->likes->contains(function ($like) use ($authUser) {
+            return $like->user_id === $authUser->id;
+
+        }) : false;
         return [
             'id' => $encodedId,
             'title' => $this->title,
@@ -35,12 +40,12 @@ class PatternGalleryResource extends JsonResource
                 'url' => $galleryUrl
             ],
             'comments' => [
-                'count' => 0,
+                'count' => $this->comments->count(),
                 'link' => "editor/" . $encodedId . "/comments"
             ],
             'likes' => [
-                "liked" => false,
-                'count' => 0
+                "liked" => $liked,
+                'count' => $this->likes->count()
             ],
             'pngLink' => $this->pngLink,
             'jpgLink' => $this->jpgLink,

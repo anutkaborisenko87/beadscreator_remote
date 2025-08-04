@@ -24,6 +24,7 @@ return [
     'profile_user_login' => 'Логін:',
     'profile_gallery_patterns_title' => 'Мої схеми',
     'profile_drafts_title' => 'Мої чорнетки',
+    'profile_liked_title' => 'Мені сподобались',
     'profile_wrong_password' => 'Введено невірний старий пароль.',
     'profile_updated' => 'Ваші дані успішно оновлено.'
 ];

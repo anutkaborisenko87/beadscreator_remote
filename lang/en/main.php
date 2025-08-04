@@ -24,6 +24,7 @@ return [
     'profile_user_login' => 'Login:',
     'profile_gallery_patterns_title' => 'My patterns',
     'profile_drafts_title' => 'My drafts',
+    'profile_liked_title' => 'Liked patterns',
     'profile_wrong_password' => 'The old password entered is incorrect.',
     'profile_updated' => 'Profile updated.'
 ];

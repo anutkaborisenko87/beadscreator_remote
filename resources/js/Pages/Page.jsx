@@ -20,6 +20,7 @@ const Page = () => {
                     <section key={item.slug}>
                         {item.slug === 'gallery_patterns' && <ProfileGallerySectioms data={item}/>}
                         {item.slug === 'drafts' && <ProfileGallerySectioms data={item}/>}
+                        {item.slug === 'liked' && <ProfileGallerySectioms data={item}/>}
                         {item.slug === 'profile_title_section' && <ProfileBreadcrumbs data={item}/>}
                         {item.slug === 'profile_user_section' && <ProfileDataSection data={item}/>}
                         {item.slug === 'home_page_section' && <HomePageSection data={item}/>}
